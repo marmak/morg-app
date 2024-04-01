@@ -1,0 +1,14 @@
+<div *ngIf="question">
+    <h2>{{question.id}} Details</h2>
+    <div><span>id: </span>{{question.question}}</div>
+    <div *ngIf="show"><span>name: </span>{{question.answer}}</div>
+    <div>
+        <button (click)="onSkipClick()">skip</button>
+        <button (click)="onShowClick()">show</button>
+    </div>
+    <button (click)="onAnswerClick(1)">Forgot</button>
+    <button (click)="onAnswerClick(2)">Wrong</button>
+    <button (click)="onAnswerClick(3)">Hard</button>
+    <button (click)="onAnswerClick(4)">OK</button>
+    <button (click)="onAnswerClick(5)">Easy</button>
+</div>

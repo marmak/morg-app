@@ -1,0 +1,13 @@
+<main>
+    <h3>questions</h3>
+    <app-question-detail [question]="selectedQuestion" (skipEvent)="handleSkipEvent()" (answerEvent)="handleAnswerEvent($event)"></app-question-detail>
+
+    <div *ngIf="prevQuestion">
+        <div>
+            {{ prevQuestion.next }}
+        </div>
+        <div>
+            {{ prevQuestion.days }}
+        </div>
+    </div>
+</main>
