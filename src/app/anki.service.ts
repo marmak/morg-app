@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { Question, Resp } from './question';
@@ -21,23 +20,12 @@ export class AnkiService {
   
   constructor(private http: HttpClient) { }
 
-  
-  // getAnki2(): Observable<Question> {
-
-  //   const selectedQuestion: Question = {
-  //     id: 2,
-  //     question: "aa2sx",
-  //     answer: "bbx"
-  //   }
-  //   const q = of(selectedQuestion)
-  //   return q;
-  // }
-
   getAnki(): Observable<Question> {
     let k = this.http.get<Question[]>(this.ankiUrl, this.httpOptions)
       .pipe(
         map(questions => questions[0]),
-        tap(q => console.log("fetched question {}", q)))
+        tap(q => console.log("fetched question {}", q)),
+        catchError(this.handleError))
     return k;
   }
 
@@ -46,30 +34,18 @@ export class AnkiService {
     return r;
   }
 
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+  private handleError(error: HttpErrorResponse) {
+  if (error.error instanceof ErrorEvent) {
+    // A client-side or network error occurred. Handle it accordingly.
+    console.error('An error occurred:', error.error.message);
+  } else {
+    // The backend returned an unsuccessful response code.
+    // The response body may contain clues as to what went wrong.
+    console.error(
+      `Backend returned code ${error.status}, ` +
+      `body was: ${error.error}`);
   }
-
-  /** Log a HeroService message with the MessageService */
-  private log(message: string) {
-    console.log(message)
-    // this.messageService.add(`HeroService: ${message}`);
+  // Return an observable with a user-facing error message.
+    return throwError('Something bad happened; please try again later.');
   }
 }

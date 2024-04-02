@@ -34,8 +34,22 @@ export class AnkiComponent {
     let qid = this.selectedQuestion.id;
     console.log("answer event received in parent component!", resp, qid);
     this.ankiService.answer(qid, resp).subscribe(r => {
-      console.log(r);
-      this.prevQuestion = this.selectedQuestion;
+      console.log("Answer response", r);
+      
+      if (r.data) {
+        // this.prevQuestion = r.question;
+        const responseData = JSON.parse(r.data);
+
+        const question: Question = {
+          id: responseData.id,
+          question: responseData.question,
+          answer: responseData.answer,
+          next: responseData.next,
+          days: responseData.days
+        };
+        this.prevQuestion = question;
+        console.log("Previous question", question);
+      }
       this.getQuestion();
     }
     );

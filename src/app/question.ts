@@ -8,5 +8,5 @@ export interface Question {
 
 export interface Resp {
   status: string,
-  question?: Question
+  data?: string
 }
