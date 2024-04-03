@@ -10,3 +10,8 @@ export interface Resp {
   status: string,
   data?: string
 }
+
+export interface Category {
+  id: number;
+  name: string;
+}

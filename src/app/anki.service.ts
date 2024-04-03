@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Question, Resp } from './question';
+import { Question, Category, Resp } from './question';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +29,14 @@ export class AnkiService {
     return k;
   }
 
+  getCategories(): Observable<Category[]> {
+    let k = this.http.get<Category[]>('/api/categories', this.httpOptions)
+      .pipe(
+        tap(c => console.log("fetched categories {}", c)),
+        catchError(this.handleError))
+    return k;
+  }
+  
   getQuestions(cat: number): Observable<Question[]> {
     let k = this.http.get<Question[]>(`/api/questions2/${cat}?load-answers=1`, this.httpOptions)
       .pipe(
