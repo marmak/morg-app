@@ -30,7 +30,7 @@ export class AnkiService {
   }
 
   getCategories(): Observable<Category[]> {
-    let k = this.http.get<Category[]>('/api/categories', this.httpOptions)
+    let k = this.http.get<Category[]>('/api/categories/', this.httpOptions)
       .pipe(
         tap(c => console.log("fetched categories {}", c)),
         catchError(this.handleError))

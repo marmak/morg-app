@@ -32,17 +32,20 @@ export class QuestionsComponent {
   constructor(
     private ankiService: AnkiService,
     private dialog: MatDialog) {}
+
   ngOnInit(): void {
+    this.getQuestion()
+    this.getCategories()
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
     );
-    this.getQuestion()
-    this.getCategories()
+
   }
 
   getCategories(): void {
     this.ankiService.getCategories().subscribe(categories => {
+      console.log("categories", categories);
       this.categories = categories;
     });
   }
@@ -53,7 +56,7 @@ export class QuestionsComponent {
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.categories.map(s=>s.name).filter(option => option.toLowerCase().includes(filterValue));
   }
   selectQuestion(q: Question): void {
     console.log("selected question", q);
