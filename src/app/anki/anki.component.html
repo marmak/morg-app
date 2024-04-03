@@ -1,7 +1,12 @@
 <main>
-    <h3>questions</h3>
+    <h3>Anki</h3>
+    <section>
+        <span (click)="selectCategory(72)">words</span>
+        <span (click)="selectCategory(73)">other</span>
+    </section>
+    <section>
     <app-question-detail [question]="selectedQuestion" (skipEvent)="handleSkipEvent()" (answerEvent)="handleAnswerEvent($event)"></app-question-detail>
-
+    </section>
     <div *ngIf="prevQuestion">
         <div>
             {{ prevQuestion.next }}

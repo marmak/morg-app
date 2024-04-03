@@ -22,22 +22,26 @@ export class AnkiComponent {
   
   selectedQuestion!: Question;
   prevQuestion!: Question;
+  selectedCategory: number = 72;
 
+  selectCategory(c: number): void {
+    console.log("selected cate", c);
+    this.selectedCategory = c;
+    this.getQuestion();
+  }
+  
   handleSkipEvent(): void {
-    // Handle the skip event here
     console.log("Skip event received in parent component!");
     this.getQuestion();
   }
 
   handleAnswerEvent(resp: number): void {
-    // Handle the skip event here
     let qid = this.selectedQuestion.id;
     console.log("answer event received in parent component!", resp, qid);
     this.ankiService.answer(qid, resp).subscribe(r => {
       console.log("Answer response", r);
       
       if (r.data) {
-        // this.prevQuestion = r.question;
         const responseData = JSON.parse(r.data);
 
         const question: Question = {
@@ -58,7 +62,7 @@ export class AnkiComponent {
   
   getQuestion(): void {
     console.log("Getting question from service");
-    this.ankiService.getAnki().subscribe(q => this.selectedQuestion = q)
+    this.ankiService.getAnki(this.selectedCategory).subscribe(q => this.selectedQuestion = q)
   }
 
 }

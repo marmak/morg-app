@@ -1,6 +1,9 @@
 <main>
-heeh
-    <app-anki></app-anki>
+    <a [routerLink]="['/']">home</a>
+    <a [routerLink]="['/anki']">anki</a>
+    <a [routerLink]="['/blogs']">blogs</a>
+    <section>
+    <router-outlet />
+    </section>
 </main>
 
-<router-outlet />
