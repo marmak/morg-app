@@ -8,7 +8,7 @@ import { QuestionDlgComponent } from '../entities/question-dlg/question-dlg.comp
 import { Observable, of, throwError } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
@@ -38,9 +38,13 @@ export class QuestionsComponent {
     this.getCategories()
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
-    );
+      map(value => this._filter(value)),
+    )
 
+    this.myControl.valueChanges.subscribe(value => {
+      console.log(value); // Or your custom change handling logic here
+      this.handleChange(value); // Calling a method to handle the change
+    });
   }
 
   getCategories(): void {
@@ -68,4 +72,18 @@ export class QuestionsComponent {
     const dialogRef = this.dialog.open(QuestionDlgComponent, dialogConfig);
   }
 
+  handleChange(value: string): void {
+    console.log('Changed value:', value);
+  }
+
+  onOptionSelected(event: MatAutocompleteSelectedEvent): void {
+    const selectedValue = event.option.value;
+    let cid = this.categories.find(c => c.name === selectedValue)?.id;
+    console.log('Option selected:', selectedValue, cid);
+
+    if (cid) {
+      this.currentCategory = cid;
+      this.getQuestion();
+    }
+  }
 }
