@@ -5,8 +5,14 @@
         <span (click)="selectCategory(73)">other</span>
     </section>
     <section>
+        <input type="text" [(ngModel)]="searchValue">
+        <input type="date" #dobInput>
+        <input type="text" #kokInput>
+    </section>
+    <section>
     <app-question-detail [question]="selectedQuestion" (skipEvent)="handleSkipEvent()" (answerEvent)="handleAnswerEvent($event)"></app-question-detail>
     </section>
+    <hr/>
     <div *ngIf="prevQuestion">
         <div>
             {{ prevQuestion.next }}
@@ -16,3 +22,4 @@
         </div>
     </div>
 </main>
+{{ qdc.sayHello() }}

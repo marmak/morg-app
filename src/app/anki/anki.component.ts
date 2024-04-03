@@ -1,31 +1,41 @@
-import { Component } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {NgIf, UpperCasePipe} from '@angular/common';
 import { Question } from '../question';
 import { AnkiService } from '../anki.service';
 import { QuestionDetailComponent } from '../question-detail/question-detail.component';
+import { FormsModule } from '@angular/forms';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-anki',
   standalone: true,
-  imports: [NgIf, QuestionDetailComponent],
+  imports: [NgIf, QuestionDetailComponent, FormsModule],
   templateUrl: './anki.component.html',
   styleUrl: './anki.component.css'
 })
 export class AnkiComponent {
+
   constructor(private ankiService: AnkiService) {}
+
+  @ViewChild(QuestionDetailComponent, {static: true}) qdc!: QuestionDetailComponent;
+  @ViewChild('dobInput') dobInput?: ElementRef;
+  @ViewChild('kokInput') kokInput?: ElementRef;
 
 
   ngOnInit(): void {
     this.getQuestion()
   }
-  
+
   selectedQuestion!: Question;
   prevQuestion!: Question;
   selectedCategory: number = 72;
+  searchValue: String = "lol";
 
+  
   selectCategory(c: number): void {
     console.log("selected cate", c);
+    console.log(this.dobInput);;
+    console.log(this.kokInput);;
     this.selectedCategory = c;
     this.getQuestion();
   }

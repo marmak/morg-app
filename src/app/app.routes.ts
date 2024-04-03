@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { AnkiComponent } from './anki/anki.component';
 import { BlogsComponent } from './blogs/blogs.component';
+import { QuestionsComponent } from './questions/questions.component';
 
 export const routes: Routes = [
   {
@@ -8,6 +9,11 @@ export const routes: Routes = [
     component: AnkiComponent,
     title: 'Anki page'
   },
+  {
+    path: 'questions',
+    component: QuestionsComponent,
+    title: 'questions page'
+  },  
   {
     path: 'blogs',
     component: BlogsComponent,

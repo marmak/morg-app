@@ -29,6 +29,14 @@ export class AnkiService {
     return k;
   }
 
+  getQuestions(cat: number): Observable<Question[]> {
+    let k = this.http.get<Question[]>(`/api/questions2/${cat}?load-answers=1`, this.httpOptions)
+      .pipe(
+        tap(q => console.log("fetched questions {}", q)),
+        catchError(this.handleError))
+    return k;
+  }
+  
   answer(qid: number, answer: number): Observable<Resp> {
     let r = this.http.get<Resp>(`/api/answer2/${qid}/${answer}`, this.httpOptions)
     return r;
