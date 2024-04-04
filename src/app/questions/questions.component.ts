@@ -30,7 +30,6 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
   currentCategory: number = 72;
   myControl = new FormControl();
   searchControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
   filteredOptions?: Observable<string[]>;
   pageSizeOptions = [5, 10, 25, 100];
   pageSize = 25;
@@ -69,6 +68,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getQuestion()
     this.getCategories()
+
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value)),
