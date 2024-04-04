@@ -11,10 +11,14 @@
   </mat-form-field>
 </form>
 
-<table mat-table [dataSource]="dataView" class="mat-elevation-z8">
+<table mat-table #sortQuestions="matSort" matSort role="grid" [dataSource]="dataView" class="mat-elevation-z8">
   <!-- Column definitions -->
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <th mat-header-cell *matHeaderCellDef> No.
+        <div style="display: flex; flex-direction: column;">
+            <span style="height: 100% !important" mat-sort-header>id</span>
+        </div>
+    </th>
     <td mat-cell *matCellDef="let element" (click)="selectQuestion(element)"> {{element.id}} </td>
   </ng-container>
 

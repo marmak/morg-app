@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AnkiService } from '../anki.service';
 import { Question, Category } from '../question';
@@ -17,7 +18,7 @@ import { PageEvent, MatPaginatorModule, MatPaginator } from '@angular/material/p
 @Component({
   selector: 'app-questions',
   standalone: true,
-  imports: [MatTableModule, MatAutocompleteModule, MatInputModule, ReactiveFormsModule, MatOptionModule, CommonModule, MatPaginatorModule],
+  imports: [MatTableModule, MatAutocompleteModule, MatInputModule, ReactiveFormsModule, MatOptionModule, CommonModule, MatPaginatorModule, MatSortModule],
   templateUrl: './questions.component.html',
   styleUrl: './questions.component.css'
 })
@@ -34,6 +35,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
   pageSize = 25;
   page = 0
   @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild('sortQuestions', {static: true}) sortQuestions?: MatSort;
 
   constructor(
     private ankiService: AnkiService,
@@ -43,11 +45,24 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.paginator?.page.subscribe((event: PageEvent) => {
-      console.log(event);
       this.pageSize = event.pageSize;
       this.page = event.pageIndex;
       this.dataView = this.dataSource.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize);
     });
+    this.sortQuestions?.sortChange.subscribe((sort: Sort) => {
+      let direction = sort.direction === 'asc' ? 1 : -1;
+      this.dataView = this.dataSource.sort((a, b) => {
+        if (a.id < b.id) {
+          return -1 * direction;
+        }
+        if (a.id > b.id) {
+          return 1 * direction;
+        }
+        return 0;
+      });
+      this.dataView = this.dataView.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize);
+    }
+    );
   }
 
   ngOnInit(): void {
