@@ -30,7 +30,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
   currentCategory: number = 72;
   myControl = new FormControl();
   searchControl = new FormControl();
-  filteredOptions?: Observable<string[]>;
+  filteredOptions?: Observable<Category[]>;
   pageSizeOptions = [5, 10, 25, 100];
   pageSize = 25;
   page = 0
@@ -102,9 +102,9 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
       this.dataView = this.dataSource.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize);
     });
   }
-  private _filter(value: string): string[] {
+  private _filter(value: string): Category[] {
     const filterValue = value.toLowerCase();
-    return this.categories.map(s=>s.name).filter(option => option.toLowerCase().includes(filterValue));
+    return this.categories.filter(cat => cat.name.toLowerCase().includes(filterValue));
   }
   selectQuestion(q: Question): void {
     console.log("selected question", q);
