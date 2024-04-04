@@ -6,9 +6,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AnkiService } from '../anki.service';
 import { Question, Category } from '../question';
 import { QuestionDlgComponent } from '../entities/question-dlg/question-dlg.component';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, debounceTime, distinctUntilChanged, filter, switchMap } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
+import { FormControl  } from '@angular/forms';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -29,6 +29,7 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
   categories: Category[] = [];
   currentCategory: number = 72;
   myControl = new FormControl();
+  searchControl = new FormControl();
   options: string[] = ['One', 'Two', 'Three'];
   filteredOptions?: Observable<string[]>;
   pageSizeOptions = [5, 10, 25, 100];
@@ -73,11 +74,20 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
       map(value => this._filter(value)),
     )
 
-    this.myControl.valueChanges.subscribe(value => {
-      console.log(value); // Or your custom change handling logic here
-      this.handleChange(value); // Calling a method to handle the change
-    });
-    console.log("paginator", this.paginator);
+
+    let ob = this.searchControl.valueChanges.pipe(
+      map((search) => search.trim().toLowerCase()),
+      debounceTime(500),
+      distinctUntilChanged(),
+      filter((search) => search.length > 0),
+      switchMap((search) => this.ankiService.searchQuestions(search, this.currentCategory))
+    )
+
+    ob.subscribe((questions) => {
+      this.dataSource = questions;
+      this.dataView = this.dataSource.slice(this.page * this.pageSize, (this.page + 1) * this.pageSize);
+    })
+
   }
 
   getCategories(): void {
@@ -106,9 +116,6 @@ export class QuestionsComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(QuestionDlgComponent, dialogConfig);
   }
 
-  handleChange(value: string): void {
-    console.log('Changed value:', value);
-  }
 
   onOptionSelected(event: MatAutocompleteSelectedEvent): void {
     const selectedValue = event.option.value;

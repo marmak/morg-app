@@ -1,14 +1,19 @@
 
 
 <form>
-  <mat-form-field>
-    <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
-        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option}}
-        </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+    <label>Cat</label>
+    <mat-form-field>
+        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+    <label>Question</label>
+    <mat-form-field>
+        <input type="text" matInput [formControl]="searchControl">
+    </mat-form-field>
 </form>
 
 <table mat-table #sortQuestions="matSort" matSort role="grid" [dataSource]="dataView" class="mat-elevation-z8">

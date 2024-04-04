@@ -36,7 +36,15 @@ export class AnkiService {
         catchError(this.handleError))
     return k;
   }
-  
+
+  searchQuestions(search: string, cids: number): Observable<Question[]> {
+    let body = {orSearch: [search], andSearch: [], notSearch: []}
+    let k = this.http.post<Question[]>(`/api/question_search?cids=${cids}&search-answer=1`,body, this.httpOptions)
+      .pipe(
+        tap(q => console.log("fetched questions {}", q)),
+        catchError(this.handleError))
+    return k;
+  }
   getQuestions(cat: number): Observable<Question[]> {
     let k = this.http.get<Question[]>(`/api/questions2/${cat}?load-answers=1`, this.httpOptions)
       .pipe(
