@@ -1,8 +1,18 @@
 <div *ngIf="question">
     <h2>{{question.id}} Details</h2>
-    <div><span>id: </span>{{question.question}}</div>
-    <div *ngIf="show"><span>name: </span>{{question.answer}}</div>
-    <hr/>
+    <div>
+        <span>id: </span>
+        <pre>
+        {{question.question}}
+        </pre>
+    </div>
+    <div *ngIf="show">
+        <pre>
+        {{question.answer}}
+        </pre>
+    </div>
+    <mat-divider></mat-divider>
+
     <div>
         <input type="text" #lolInput>
     </div>
