@@ -21,7 +21,7 @@ export class AnkiService {
   constructor(private http: HttpClient) { }
 
   getAnki(cat: number): Observable<Question> {
-    let k = this.http.get<Question[]>(`/api/random_question/${cat}?web=true`, this.httpOptions)
+    let k = this.http.get<Question[]>(`/api/random_question/${cat}?web=false`, this.httpOptions)
       .pipe(
         map(questions => questions[0]),
         tap(q => console.log("fetched question {}", q)),

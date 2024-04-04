@@ -19,9 +19,13 @@
         <button (click)="onSkipClick()">skip</button>
         <button (click)="onShowClick()">show</button>
     </div>
+    <h4>Answer</h4>
     <button (click)="onAnswerClick(1)">Forgot</button>
     <button (click)="onAnswerClick(2)">Wrong</button>
     <button (click)="onAnswerClick(3)">Hard</button>
     <button (click)="onAnswerClick(4)">OK</button>
     <button (click)="onAnswerClick(5)">Easy</button>
+</div>
+<div *ngIf="!question">
+    <h4>Question not found</h4>
 </div>

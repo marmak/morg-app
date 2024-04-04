@@ -34,7 +34,4 @@ export class QuestionDetailComponent {
     this.answerEvent.emit(resp);
   }
 
-  sayHello(): void {
-    console.log("hello1")
-  }
 }

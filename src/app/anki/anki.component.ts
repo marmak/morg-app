@@ -5,6 +5,7 @@ import { AnkiService } from '../anki.service';
 import { QuestionDetailComponent } from '../question-detail/question-detail.component';
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged, filter, switchMap, finalize, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-anki',
@@ -26,53 +27,52 @@ export class AnkiComponent {
     this.getQuestion()
   }
 
-  selectedQuestion!: Question;
+  selectedQuestion?: Question;
   prevQuestion!: Question;
-  selectedCategory: number = 72;
+  selectedCategory = new BehaviorSubject<number>(72);
   searchValue: String = "lol";
 
-  
-  selectCategory(c: number): void {
-    console.log("selected cate", c);
-    console.log(this.dobInput);;
-    console.log(this.kokInput);;
-    this.selectedCategory = c;
-    this.getQuestion();
-  }
-  
   handleSkipEvent(): void {
-    console.log("Skip event received in parent component!");
-    this.getQuestion();
+    const lastValue = this.selectedCategory.value;
+    this.selectedCategory.next(lastValue);
   }
 
   handleAnswerEvent(resp: number): void {
+    if (!this.selectedQuestion) {
+      return;
+    }
     let qid = this.selectedQuestion.id;
     console.log("answer event received in parent component!", resp, qid);
-    this.ankiService.answer(qid, resp).subscribe(r => {
-      console.log("Answer response", r);
-      
-      if (r.data) {
-        const responseData = JSON.parse(r.data);
+    this.ankiService.answer(qid, resp)
+      .pipe(
+        finalize(() => {
+          console.log("Finalizing answer event");
+          this.handleSkipEvent();
+        }))
+      .subscribe(r => {
+        console.log("Answer response", r);
+        if (r.data) {
+          const responseData = JSON.parse(r.data);
 
-        const question: Question = {
-          id: responseData.id,
-          question: responseData.question,
-          answer: responseData.answer,
-          next: responseData.next,
-          days: responseData.days
-        };
-        this.prevQuestion = question;
-        console.log("Previous question", question);
+          const question: Question = {
+            id: responseData.id,
+            question: responseData.question,
+            answer: responseData.answer,
+            next: responseData.next,
+            days: responseData.days
+          };
+          this.prevQuestion = question;
+          console.log("Previous question", question);
+        }
       }
-      this.getQuestion();
-    }
     );
   }
 
   
   getQuestion(): void {
     console.log("Getting question from service");
-    this.ankiService.getAnki(this.selectedCategory).subscribe(q => this.selectedQuestion = q)
+    this.selectedCategory.pipe(
+      switchMap(cat => this.ankiService.getAnki(cat))
+    ).subscribe(q => this.selectedQuestion = q)
   }
-
 }
