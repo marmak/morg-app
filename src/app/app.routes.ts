@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AnkiComponent } from './anki/anki.component';
 import { BlogsComponent } from './blogs/blogs.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { MyTableComponent } from './datasource-kok/datasource-kok.component';
 
 export const routes: Routes = [
   {
@@ -19,5 +20,10 @@ export const routes: Routes = [
     component: BlogsComponent,
     title: 'Blogs page'
   },
+  {
+    path: 'ds',
+    component: MyTableComponent,
+    title: 'ds'
+  },  
 
 ];
