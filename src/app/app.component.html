@@ -1,8 +1,11 @@
 <main>
-    <a [routerLink]="['/']">home</a>
-    <a [routerLink]="['/anki']">anki</a>
-    <a [routerLink]="['/blogs']">blogs</a>
-    <a [routerLink]="['/questions']">questions</a>
+    <mat-list class="list-horizontal" >
+        <a mat-list-item [routerLink]="['/']">home</a>
+        <a mat-list-item [routerLink]="['/anki']">anki</a>
+        <a mat-list-item [routerLink]="['/blogs']">blogs</a>
+        <a mat-list-item [routerLink]="['/questions']">questions</a>
+    </mat-list>
+    <mat-divider></mat-divider>
     <section>
     <router-outlet />
     </section>

@@ -1,0 +1,4 @@
+mat-list.list-horizontal {
+ display: flex;
+ flex-direction: row;
+}
