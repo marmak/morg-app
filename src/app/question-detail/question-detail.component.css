@@ -1,0 +1,6 @@
+pre {
+    /* background: blue; */
+    white-space: pre-wrap !important;
+    /* font:400 12px/20px 'PT Mono', monospace; */
+    width: 50%;
+}
