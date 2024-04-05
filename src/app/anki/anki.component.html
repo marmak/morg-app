@@ -1,10 +1,10 @@
 <main>
     <h3>Anki</h3>
     <section>
-        <button mat-raised-button (click)="selectedCategory.next(72)">words</button>
-        <button mat-raised-button (click)="selectedCategory.next(73)">other</button>
-        <button mat-raised-button (click)="selectedCategory.next(92)">emacs</button>
-        <button mat-raised-button (click)="selectedCategory.next(83)">bash</button>
+        <button mat-raised-button (click)="selectedCategory.next(72)">words {{ pendingCounts["72"] || "0"  }} </button>
+        <button mat-raised-button (click)="selectedCategory.next(73)">other {{ pendingCounts["73"] || "0"  }} </button>
+        <button mat-raised-button (click)="selectedCategory.next(92)">emacs {{ pendingCounts["92"] || "0"  }} </button>
+        <button mat-raised-button (click)="selectedCategory.next(83)">bash {{ pendingCounts["83"] || "0"  }} </button>
     </section>
     <mat-divider></mat-divider>    
 

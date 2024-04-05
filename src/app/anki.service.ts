@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { Question, Category, Resp } from './question';
+import { Question, Category, Resp, PendingCounts } from './question';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +20,14 @@ export class AnkiService {
   
   constructor(private http: HttpClient) { }
 
+  getPendingCounts(): Observable<PendingCounts> {
+    let k = this.http.get<PendingCounts>('/api/pending_counts/', this.httpOptions)
+      .pipe(
+        tap(c => console.log("fetched pending counts {}", c)),
+        catchError(this.handleError))
+    return k;
+  }
+  
   getAnki(cat: number): Observable<Question> {
     let k = this.http.get<Question[]>(`/api/random_question/${cat}?web=false`, this.httpOptions)
       .pipe(
