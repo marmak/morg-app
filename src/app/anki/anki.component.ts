@@ -6,11 +6,13 @@ import { QuestionDetailComponent } from '../question-detail/question-detail.comp
 import { FormsModule } from '@angular/forms';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged, filter, switchMap, finalize, BehaviorSubject } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
 
 @Component({
   selector: 'app-anki',
   standalone: true,
-  imports: [NgIf, QuestionDetailComponent, FormsModule],
+  imports: [NgIf, QuestionDetailComponent, FormsModule, MatButtonModule, MatDividerModule],
   templateUrl: './anki.component.html',
   styleUrl: './anki.component.css'
 })
@@ -70,9 +72,15 @@ export class AnkiComponent {
 
   
   getQuestion(): void {
-    console.log("Getting question from service");
     this.selectedCategory.pipe(
       switchMap(cat => this.ankiService.getAnki(cat))
-    ).subscribe(q => this.selectedQuestion = q)
+    ).subscribe(q => {
+      if (q) {
+        let questionHead = q.question.split('\n')[0];
+        q.questionHead = questionHead;
+      }
+      this.qdc!.show = false;
+      this.selectedQuestion = q
+    })
   }
 }

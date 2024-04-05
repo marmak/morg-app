@@ -1,20 +1,15 @@
 <main>
     <h3>Anki</h3>
     <section>
-        <span (click)="selectedCategory.next(72)">words</span>
-        <span (click)="selectedCategory.next(73)">other</span>
-        <span (click)="selectedCategory.next(92)">emacs</span>
-        <span (click)="selectedCategory.next(83)">bash</span>
+        <button mat-raised-button (click)="selectedCategory.next(72)">words</button>
+        <button mat-raised-button (click)="selectedCategory.next(73)">other</button>
+        <button mat-raised-button (click)="selectedCategory.next(92)">emacs</button>
+        <button mat-raised-button (click)="selectedCategory.next(83)">bash</button>
     </section>
-    <section>
-        <input type="text" [(ngModel)]="searchValue">
-        <input type="date" #dobInput>
-        <input type="text" #kokInput>
-    </section>
-    <section>
+    <mat-divider></mat-divider>    
+
     <app-question-detail [question]="selectedQuestion" (skipEvent)="handleSkipEvent()" (answerEvent)="handleAnswerEvent($event)"></app-question-detail>
-    </section>
-    <hr/>
+    <mat-divider></mat-divider>
     <div *ngIf="prevQuestion">
         <div>
             {{ prevQuestion.next }}

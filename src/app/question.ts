@@ -1,6 +1,7 @@
 export interface Question {
   id: number;
   question: string;
+  questionHead?: string;
   answer: string;
   next: string;
   days: number;

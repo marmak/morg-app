@@ -1,30 +1,30 @@
 <div *ngIf="question">
-    <h2>{{question.id}} Details</h2>
-    <div>
-        <span>id: </span>
-        <pre>
-        {{question.question}}
-        </pre>
-    </div>
-    <div *ngIf="show">
-        <pre>
-        {{question.answer}}
-        </pre>
-    </div>
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>
+                <h4>{{question.id}} {{question.questionHead}}</h4>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <pre>{{question.question}}</pre>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-button (click)="onSkipClick()">skip</button>
+            <button mat-button (click)="onShowClick()">show</button>
+        </mat-card-actions>
 
-    <div>
-        <input type="text" #lolInput>
-    </div>
-    <div>
-        <button (click)="onSkipClick()">skip</button>
-        <button (click)="onShowClick()">show</button>
-    </div>
-    <h4>Answer</h4>
-    <button (click)="onAnswerClick(1)">Forgot</button>
-    <button (click)="onAnswerClick(2)">Wrong</button>
-    <button (click)="onAnswerClick(3)">Hard</button>
-    <button (click)="onAnswerClick(4)">OK</button>
-    <button (click)="onAnswerClick(5)">Easy</button>
+        <mat-card-content *ngIf="show">
+            <pre>{{question.answer}}</pre>
+        </mat-card-content>
+        <mat-card-actions *ngIf="show">
+            <button mat-flat-button color="warn" (click)="onAnswerClick(1)">Forgot</button>
+            <button mat-flat-button color="accent" (click)="onAnswerClick(2)">Wrong</button>
+            <button mat-flat-button color="primary" (click)="onAnswerClick(3)">Hard</button>
+            <button mat-flat-button color="basic" (click)="onAnswerClick(4)">OK</button>
+            <button mat-flat-button style="background-color: green; color: white;" (click)="onAnswerClick(5)">Easy</button>
+        </mat-card-actions>
+    </mat-card>
+
 </div>
 <div *ngIf="!question">
     <h4>Question not found</h4>
