@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {NgIf, UpperCasePipe} from '@angular/common';
+import {NgFor, NgIf, UpperCasePipe} from '@angular/common';
 import { Question } from '../question';
 import { AnkiComponent } from '../anki/anki.component';
 import {MatCardModule} from '@angular/material/card';
@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-question-detail',
   standalone: true,
-  imports: [NgIf, AnkiComponent, MatCardModule, MatButtonModule],
+  imports: [NgIf, AnkiComponent, MatCardModule, MatButtonModule, NgFor],
   templateUrl: './question-detail.component.html',
   styleUrl: './question-detail.component.css'
 })

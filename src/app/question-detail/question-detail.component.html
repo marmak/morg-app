@@ -15,6 +15,9 @@
 
         <mat-card-content *ngIf="show">
             <pre>{{question.answer}}</pre>
+            <div *ngFor="let image of question.images">
+                <img src="http://localhost:3000/{{image}}" />
+            </div>
         </mat-card-content>
         <mat-card-actions *ngIf="show">
             <button mat-flat-button color="warn" (click)="onAnswerClick(1)">Forgot</button>
@@ -26,6 +29,8 @@
     </mat-card>
 
 </div>
+<!-- <img src="http://localhost:3000/anki/blink.png" /> -->
+
 <div *ngIf="!question">
     <h4>Question not found</h4>
 </div>

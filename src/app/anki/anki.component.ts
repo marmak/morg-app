@@ -10,6 +10,31 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import { Routes, RouterModule, ActivatedRoute, Router } from '@angular/router';
 
+
+function convertImages(d: string): string[] {
+  if (!d.includes("images/")) {
+    return [];
+  }
+
+  const regex = /\[\[(.*)]\]/gm;
+  const matches = d.matchAll(regex);
+  let imgs: string[] = [];
+  if (matches) {
+    for (const match of matches) {
+      const h = match[1];
+      const bi = h.slice(h.indexOf("anki/"));
+      imgs.push(bi);
+    }
+  }
+
+  if (imgs.length > 0) {
+    return imgs;
+  } else {
+    return [];
+  }
+}
+
+
 @Component({
   selector: 'app-anki',
   standalone: true,
@@ -76,7 +101,6 @@ export class AnkiComponent {
     );
   }
 
-  
   getQuestion(): void {
     this.selectedCategory.pipe(
       switchMap(cat => this.ankiService.getAnki(cat))
@@ -84,6 +108,7 @@ export class AnkiComponent {
       if (q) {
         let questionHead = q.question.split('\n')[0];
         q.questionHead = questionHead;
+        q.images = convertImages(q.answer);
       }
       this.qdc!.show = false;
       this.selectedQuestion = q

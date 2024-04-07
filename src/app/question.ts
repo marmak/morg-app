@@ -3,6 +3,7 @@ export interface Question {
   question: string;
   questionHead?: string;
   answer: string;
+  images?: string[];
   next: string;
   days: number;
 }
