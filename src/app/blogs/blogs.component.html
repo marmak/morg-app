@@ -1,1 +1,14 @@
-<p>blogs works!</p>
+<ng-container *ngIf="result | async as blogList">
+    <h2>Blogs</h2>
+    <div *ngFor="let blog of blogList.blogs">
+        <div> {{ blog.blog_name }} {{ blog.item_count }}</div>
+    </div>
+</ng-container>
+<hr/>
+
+<ng-container *ngIf="result | async as itemList">
+    <div *ngFor="let item of itemList.items">
+        <h4>{{ item.blog_name }}</h4>
+        <p>{{ item.post_title }}</p>
+    </div>
+</ng-container>

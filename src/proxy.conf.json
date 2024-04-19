@@ -1,7 +1,12 @@
-{
+  {
   "/api": {
     "target": "https://marmak.xyz:8082",
     "secure": false,
     "changeOrigin": true
+  },
+  "/blogs/api": {
+    "target": "http://localhost:3000",
+    "secure": false,
+    "changeOrigin": true
   }
-}
+  }
