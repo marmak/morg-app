@@ -2,14 +2,28 @@
     <h2>Blogs</h2>
 
     <div *ngFor="let blog of blogList.blogs">
-            <a [routerLink]="['/blog', blog.blog_id]">{{ blog.blog_name }}</a>
+            <a [routerLink]="['/blog', blog.blog_id]">{{ blog.blog_name }}  ({{ blog.item_count }})</a>
     </div>
 </ng-container>
 <hr/>
 
+<div>
+    <span>items: {{ (result | async)?.items?.length }} </span>
+    <button (click)="markRead()">mark as read</button>
+
+</div>
 <ng-container *ngIf="result | async as itemList">
-    <div *ngFor="let item of itemList.items">
-        <h4>{{ item.blog_name }}</h4>
-        <p>{{ item.post_title }}</p>
-    </div>
+    <table>
+        <tr>
+            <th>published</th>
+            <th>blog_name</th>
+            <th>post_title</th>
+        </tr>
+        <tr *ngFor="let item of itemList.items">
+            <td>{{ item.published }}</td>
+            <td>{{ item.blog_name }}</td>
+            <td> <a [style.font-weight] =" item.status == 6 ? 'bold' : 'normal'" href="{{ item.post_link }}" target="_blank">{{ item.post_title }}</a></td>
+        </tr>
+    </table>
+
 </ng-container>

@@ -5,6 +5,7 @@ import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged
 import { BlogsService } from '../blogs.service';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
 import { Router } from '@angular/router';
+import { HttpHeaders, HttpEventType} from '@angular/common/http';
 @Component({
   selector: 'app-blog',
   standalone: true,
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
 export class BlogComponent implements  OnInit {
   blogId?: string;
   blogInfo?: BlogInfo;
+  streamingData = 'empty';
   constructor(private blogsService: BlogsService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
@@ -27,14 +29,31 @@ export class BlogComponent implements  OnInit {
     });
   }
 
+  summarize(url: string) {
+    this.blogsService.kagiSummarize(url).subscribe(
+      (result) => {
+        console.log("summarize", result);
+
+        const start = result.indexOf('<ul>');
+        const end = result.indexOf('</ul>');
+        if (start !== -1 && end !== -1) {
+          let resultString = "<ul>" + result.substring(start + 4, end) + "</ul>";
+          // remove all \n
+          resultString = resultString.replace(/\\n/g, '');
+          console.log("summarize", resultString);
+          this.streamingData = resultString;
+        }
+      }
+    );
+  }
   markRead() {
-    const firstItem = this.blogInfo?.items[0];
+    const firstItem = this.blogInfo?.items.find((item) => new Date(item.published) <= new Date());
     const lastRead = firstItem.published;
     const intBlogId = parseInt(this.blogId || "0");
-    console.log("markRead", this.blogId, lastRead);
-    this.blogsService.markRead([intBlogId], lastRead).subscribe((result) => {
+    const update = [{blogId: intBlogId, lastRead: lastRead}];
+    console.log("markRead", update);
+    this.blogsService.markRead(update).subscribe((result) => {
       console.log("marked read", result);
-      // navigate back to index
       this.router.navigate(['/blogs']);
     });
   }

@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, scan, EMPTY } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { BlogItem, BlogResult, BlogInfo } from './blog';
+import { HttpEventType} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -28,13 +29,60 @@ export class BlogsService {
         catchError(this.handleError)
       );
   }
-  markRead(blogIds: number[], lastRead: Date): Observable<any> {
-    return this.http.post<any>('/blogs/api/markRead', {blogIds, lastRead}, this.httpOptions)
+  kagiSummarize(url: string): Observable<any> {
+    return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
+      headers: this.httpOptions.headers,
+      responseType: 'text' as 'json',
+      observe: 'events', reportProgress: true}).pipe(
+        map(event => {
+          if (event.type === HttpEventType.Response) {
+            return event.body;
+          }
+          return '';
+        }),
+        // scan((acc : string, curr :string) => {
+        //   // console.log("curr", curr);
+        //   // return acc + curr
+        //   return curr;
+        // }, ''),
+        catchError(error => {
+          console.error('Error:', error);
+          return EMPTY;
+        })
+      );
+  }
+
+  kagiSummarizeold(url: string): Observable<any> {
+    return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
+      headers: this.httpOptions.headers,
+      responseType: 'text' as 'json',
+      observe: 'events', reportProgress: true}).pipe(
+        map(event => {
+          if (event.type === HttpEventType.Response) {
+            return event.body;
+          }
+          return '';
+        }),
+        // scan((acc : string, curr :string) => {
+        //   // console.log("curr", curr);
+        //   // return acc + curr
+        //   return curr;
+        // }, ''),
+        catchError(error => {
+          console.error('Error:', error);
+          return EMPTY;
+        })
+      );
+  }
+  
+  
+  markRead(updates: any[]): Observable<any> {
+    return this.http.post<any>('/blogs/api/markRead', updates, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
-
+  
   private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
     // A client-side or network error occurred. Handle it accordingly.
