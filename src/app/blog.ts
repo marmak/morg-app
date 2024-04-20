@@ -14,3 +14,10 @@ export interface BlogItem {
   post_title: string;
   item_count: number;
 }
+
+
+export interface  BlogInfo {
+  blog: any,
+  last_read: Date,
+  items: any[]
+};

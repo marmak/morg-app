@@ -4,10 +4,11 @@ import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged
 import { BlogItem, BlogResult } from '../blog';
 import {NgIf, UpperCasePipe} from '@angular/common';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-blogs',
   standalone: true,
-  imports: [NgIf, UpperCasePipe,  CommonModule, AsyncPipe],
+  imports: [NgIf, UpperCasePipe,  CommonModule, AsyncPipe, RouterModule],
   templateUrl: './blogs.component.html',
   styleUrl: './blogs.component.css'
 })

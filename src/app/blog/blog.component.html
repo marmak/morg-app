@@ -1,0 +1,21 @@
+
+<h3>{{ blogInfo?.blog?.name }}</h3>
+
+<div>
+    last read {{ blogInfo?.last_read  }}
+</div>
+<div>
+    read:
+    <button (click)="markRead()">mark as read</button>
+</div>
+<hr/>
+
+<div *ngFor="let item of blogInfo?.items">
+    <!-- <p [style.font-weight]="item.unread ? 'bold' : 'normal'">{{ item.title }}</p> -->
+    <div>
+        <span>{{ formatDate(item.published) }}</span>
+        <span> : </span>
+        <span [class.bold]="item.unread">{{ item.title }}</span>
+    </div>
+    
+</div>

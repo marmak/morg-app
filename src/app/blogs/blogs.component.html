@@ -1,7 +1,8 @@
 <ng-container *ngIf="result | async as blogList">
     <h2>Blogs</h2>
+
     <div *ngFor="let blog of blogList.blogs">
-        <div> {{ blog.blog_name }} {{ blog.item_count }}</div>
+            <a [routerLink]="['/blog', blog.blog_id]">{{ blog.blog_name }}</a>
     </div>
 </ng-container>
 <hr/>

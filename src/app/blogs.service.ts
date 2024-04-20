@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { BlogItem, BlogResult } from './blog';
+import { BlogItem, BlogResult, BlogInfo } from './blog';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,18 @@ export class BlogsService {
         catchError(this.handleError)
       );
   }
-
+  getBlog(id: number): Observable<BlogInfo> {
+    return this.http.get<BlogInfo>('/blogs/api/blog/' + id, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  markRead(blogIds: number[], lastRead: Date): Observable<any> {
+    return this.http.post<any>('/blogs/api/markRead', {blogIds, lastRead}, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   private handleError(error: HttpErrorResponse) {
   if (error.error instanceof ErrorEvent) {
