@@ -6,10 +6,11 @@ import { BlogsService } from '../blogs.service';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
 import { Router } from '@angular/router';
 import { HttpHeaders, HttpEventType} from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.css'
 })
@@ -17,6 +18,7 @@ export class BlogComponent implements  OnInit {
   blogId?: string;
   blogInfo?: BlogInfo;
   streamingData = 'empty';
+  summarizeLink: string = "";
   constructor(private blogsService: BlogsService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {

@@ -21,7 +21,7 @@
         </tr>
         <tr *ngFor="let item of itemList.items">
             <td>{{ item.published }}</td>
-            <td>{{ item.blog_name }}</td>
+            <td><a [routerLink]="['/blog', item.blog_id]">{{ item.blog_name }}</a></td>
             <td> <a [style.font-weight] =" item.status == 6 ? 'bold' : 'normal'" href="{{ item.post_link }}" target="_blank">{{ item.post_title }}</a></td>
         </tr>
     </table>

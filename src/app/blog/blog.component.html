@@ -9,7 +9,12 @@
     <button (click)="markRead()">mark as read</button>
 </div>
 <hr/>
+<div>
+<input type="text" [(ngModel)]="summarizeLink" placeholder="url">
+<button (click)="summarize(summarizeLink)">summarize</button>
+</div>
 <div id="summary" [innerHTML]="streamingData"></div>
+
 <div *ngFor="let item of blogInfo?.items">
     <!-- <p [style.font-weight]="item.unread ? 'bold' : 'normal'">{{ item.title }}</p> -->
     <div>
