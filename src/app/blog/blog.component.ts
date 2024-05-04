@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { BlogInfo } from '../blog';
-import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged, filter, switchMap, finalize, BehaviorSubject } from 'rxjs';
-import { BlogsService } from '../blogs.service';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
-import { Router } from '@angular/router';
-import { HttpHeaders, HttpEventType} from '@angular/common/http';
+import { HttpEventType, HttpHeaders } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { BehaviorSubject, Observable, Subject, debounceTime, distinctUntilChanged, filter, finalize, of, switchMap, throwError } from 'rxjs';
+import { BlogInfo } from '../blog';
+import { BlogsService } from '../blogs.service';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.css'
 })
@@ -18,7 +17,10 @@ export class BlogComponent implements  OnInit {
   blogId?: string;
   blogInfo?: BlogInfo;
   streamingData = 'empty';
+  status?: number;
   summarizeLink: string = "";
+  blogSearchQuery: string = "";
+  blogSearchResults: any[] = [];
   constructor(private blogsService: BlogsService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
@@ -27,6 +29,7 @@ export class BlogComponent implements  OnInit {
       const intId = parseInt(params['id']);
       this.blogsService.getBlog(intId).subscribe((result) => {
         this.blogInfo = result;
+        this.status = this.blogInfo.blog.status;
       });
     });
   }
@@ -48,6 +51,25 @@ export class BlogComponent implements  OnInit {
       }
     );
   }
+  blogSearch(url: string) {
+    this.blogsService.searchBlogs(url).subscribe(
+      (result) => {
+        console.log("search", result);
+        this.blogSearchResults = result;
+      }
+    );
+  }
+  updateStatus() {
+    console.log("updateStatus", this.status);
+    if (this.status === undefined || this.blogId === undefined) {
+      return;
+    }
+    const intBlogId = parseInt(this.blogId);
+    this.blogsService.updateStatus(intBlogId, this.status).subscribe((result) => {
+      console.log("updated status", result);
+    });
+  }
+  
   markRead() {
     const firstItem = this.blogInfo?.items.find((item) => new Date(item.published) <= new Date());
     const lastRead = firstItem.published;

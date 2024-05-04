@@ -35,7 +35,8 @@ export class BlogsComponent {
       console.log("markRead", updates);
       this.blogsService.markRead(updates).subscribe((result) => {
         console.log("marked read", result);
-        this.router.navigate(['/blogs']);
+        // this.router.navigate(['/blogs']);
+        this.result = this.blogsService.getBlogs()
       });
     });
 

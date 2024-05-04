@@ -23,6 +23,12 @@ export class BlogsService {
         catchError(this.handleError)
       );
   }
+  searchBlogs(query: string): Observable<any[]> {
+    return this.http.get<any[]>('/blogs/api/search?q=' + query, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   getBlog(id: number): Observable<BlogInfo> {
     return this.http.get<BlogInfo>('/blogs/api/blog/' + id, this.httpOptions)
       .pipe(
@@ -74,7 +80,14 @@ export class BlogsService {
         })
       );
   }
-  
+
+
+  updateStatus(bid: number, status: number): Observable<any> {
+    return this.http.post<any>('/blogs/api/updateStatus', {bid: bid, status: status}, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
   
   markRead(updates: any[]): Observable<any> {
     return this.http.post<any>('/blogs/api/markRead', updates, this.httpOptions)
