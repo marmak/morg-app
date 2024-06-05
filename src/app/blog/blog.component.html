@@ -41,9 +41,9 @@
 <hr/>
 <div *ngFor="let item of blogInfo?.items">
     <!-- <p [style.font-weight]="item.unread ? 'bold' : 'normal'">{{ item.title }}</p> -->
-    <div>
+    <div class="item" >
         <!-- <span>{{ formatDate(item.published) }}</span> -->
-        <span>{{ item.published | date:'medium' }}</span>
+        <span>{{ item.published | date:'shortDate' }}</span>
         <span> : </span>
         <span [class.bold]="item.unread"><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></span>
         <span (click)="summarize(item.link)"> Summarize </span>
