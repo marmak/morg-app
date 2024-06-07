@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BlogsService } from '../blogs.service';
 import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged, filter, switchMap, finalize, BehaviorSubject } from 'rxjs';
-import { BlogItem, BlogResult, LastReadUpdate } from '../blog';
+import { BlogItem, Blog, BlogResult, LastReadUpdate } from '../blog';
 import {NgIf, UpperCasePipe} from '@angular/common';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
 import { RouterModule, Router } from '@angular/router';
@@ -14,12 +14,51 @@ import { RouterModule, Router } from '@angular/router';
 })
 export class BlogsComponent {
   result?: Observable<BlogResult>;
+  hoveredBlog?: Blog = undefined;
+  hoveredItems? : any[];
+  
   constructor(private blogsService: BlogsService, private router: Router) { }
 
   ngOnInit(): void {
     this.result = this.blogsService.getBlogs()
   }
 
+
+  checkHover(event: MouseEvent, blog: any): void {
+    if (event.ctrlKey) {
+      this.showInfo(blog);
+      // this.executeFunction(blog);
+    }
+  }
+
+  showInfo(blog: Blog): void {
+    this.hoveredBlog = blog;
+    const blogId = blog.blog_id;
+    this.blogsService.getBlog(blogId).subscribe((result) => {
+      // get only item unreads (unread: true)
+      this.hoveredItems = result.items.filter((item) => item.unread);
+    });
+  }
+
+  hideInfo(): void {
+    // this.hoveredBlog = undefined;
+  }
+
+  markReadBlog(): void {
+    const firstItem = this.hoveredItems?.find((item) => new Date(item.published) <= new Date());
+    const lastRead = firstItem.published;
+    const intBlogId = this.hoveredBlog?.blog_id || 0;
+    const update = [{blogId: intBlogId, lastRead: lastRead}];
+    console.log("markRead", update);
+    this.blogsService.markRead(update).subscribe((result) => {
+      console.log("marked read", result);
+      this.hoveredBlog = undefined;
+      this.result = this.blogsService.getBlogs();
+    });
+    
+  }
+  
+  
   markRead() {
     this.result?.subscribe((result) => {
       let updates = result.items.map((item) => {

@@ -2,7 +2,18 @@
     <h2>Blogs</h2>
 
     <div class="blog-info" *ngFor="let blog of blogList.blogs">
-            <a [routerLink]="['/blog', blog.blog_id]">{{ blog.blog_name }}  ({{ blog.item_count }})</a>
+        <a class="blog-link" [routerLink]="['/blog', blog.blog_id]"
+           (mouseover)="checkHover($event, blog)" 
+           (mouseleave)="hideInfo()">
+            {{ blog.blog_name }}  ({{ blog.item_count }})
+        </a>
+        <div *ngIf="hoveredBlog === blog" class="hover-info">
+            <!-- Add any additional info you want to show on hover -->
+            <p>Additional info about {{ blog.blog_name }}     <button (click)="markReadBlog()">mark as read</button></p>
+            <div *ngFor="let item of hoveredItems">
+                <p> <a href="{{ item.link }}" target="_blank">{{ item.title }}</a></p>
+            </div>
+        </div>
     </div>
 </ng-container>
 <hr/>

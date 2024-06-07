@@ -4,3 +4,9 @@
 .blog-info {
     font-size: 20px;
 }
+
+.hover-info {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+}
