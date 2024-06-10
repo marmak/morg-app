@@ -25,10 +25,10 @@ export class BlogsComponent {
 
 
   checkHover(event: MouseEvent, blog: any): void {
-    if (event.ctrlKey) {
+    // if (event.ctrlKey) {
       this.showInfo(blog);
       // this.executeFunction(blog);
-    }
+    // }
   }
 
   showInfo(blog: Blog): void {
