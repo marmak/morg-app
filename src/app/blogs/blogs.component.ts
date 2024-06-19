@@ -20,9 +20,8 @@ export class BlogsComponent {
   constructor(private blogsService: BlogsService, private router: Router) { }
 
   ngOnInit(): void {
-    this.result = this.blogsService.getBlogs()
+    this.result = this.blogsService.getBlogs();
   }
-
 
   checkHover(event: MouseEvent, blog: any): void {
     // if (event.ctrlKey) {
