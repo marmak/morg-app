@@ -1,4 +1,5 @@
 <ng-container *ngIf="result | async as blogList">
+    <div id="summary" [innerHTML]="streamingData"></div>
     <h2>Blogs</h2>
 
     <div class="blog-info" *ngFor="let blog of blogList.blogs">
@@ -11,7 +12,7 @@
             <!-- Add any additional info you want to show on hover -->
             <p> <button (click)="markReadBlog()">mark as read</button> </p>
             <div *ngFor="let item of hoveredItems">
-                <p> <a href="{{ item.link }}" target="_blank">{{ item.title }}</a></p>
+                <p> <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>         <span (click)="summarize(item.link)"> Summarize </span></p>
             </div>
         </div>
     </div>

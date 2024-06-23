@@ -16,7 +16,8 @@ export class BlogsComponent {
   result?: Observable<BlogResult>;
   hoveredBlog?: Blog = undefined;
   hoveredItems? : any[];
-  
+  streamingData = '';
+
   constructor(private blogsService: BlogsService, private router: Router) { }
 
   ngOnInit(): void {
@@ -39,6 +40,23 @@ export class BlogsComponent {
     });
   }
 
+  summarize(url: string) {
+    this.blogsService.kagiSummarize(url).subscribe(
+      (result) => {
+        console.log("summarize", result);
+
+        const start = result.indexOf('<ul>');
+        const end = result.indexOf('</ul>');
+        if (start !== -1 && end !== -1) {
+          let resultString = "<ul>" + result.substring(start + 4, end) + "</ul>";
+          // remove all \n
+          resultString = resultString.replace(/\\n/g, '');
+          console.log("summarize", resultString);
+          this.streamingData = resultString;
+        }
+      }
+    );
+  }  
   hideInfo(): void {
     // this.hoveredBlog = undefined;
   }
