@@ -9,7 +9,6 @@ import { HttpEventType} from '@angular/common/http';
   providedIn: 'root'
 })
 export class BlogsService {
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json',
       'Authorization': 'lol2', 'testi': '0', 'Access-Control-Allow-Origin': "*"})
@@ -57,7 +56,6 @@ export class BlogsService {
         })
       );
   }
-
   kagiSummarizeold(url: string): Observable<any> {
     return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
       headers: this.httpOptions.headers,

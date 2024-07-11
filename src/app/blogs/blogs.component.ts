@@ -17,11 +17,26 @@ export class BlogsComponent {
   hoveredBlog?: Blog = undefined;
   hoveredItems? : any[];
   streamingData = '';
-
+  lastVisit? = new Date();
+  visitCount = 0;
+  
   constructor(private blogsService: BlogsService, private router: Router) { }
 
   ngOnInit(): void {
     this.result = this.blogsService.getBlogs();
+    this.lastVisit = new Date();
+    localStorage.setItem('lastVisit', this.lastVisit.toISOString());
+    let intVisitCount = localStorage.getItem('visitCount');
+    if (intVisitCount !== null) {
+      this.visitCount = parseInt(intVisitCount);
+    }
+    if (this.visitCount === null) {
+      this.visitCount = 0;
+    }
+    this.visitCount++;
+    localStorage.setItem('visitCount', String(this.visitCount));
+    
+    
   }
 
   checkHover(event: MouseEvent, blog: any): void {

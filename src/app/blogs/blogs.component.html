@@ -1,7 +1,8 @@
 <ng-container *ngIf="result | async as blogList">
     <div id="summary" [innerHTML]="streamingData"></div>
     <h2>Blogs</h2>
-
+    <div>{{  lastVisit | date: 'yyyy-MM-dd HH:mm' }} <span> ({{ visitCount }})</span></div>
+    <hr/>
     <div class="blog-info" *ngFor="let blog of blogList.blogs">
         <a class="blog-link" [routerLink]="['/blog', blog.blog_id]"
            (mouseover)="checkHover($event, blog)" 
