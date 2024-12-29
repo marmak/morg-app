@@ -25,20 +25,21 @@ export class BlogsComponent {
   ngOnInit(): void {
     this.result = this.blogsService.getBlogs();
     this.lastVisit = new Date();
-    localStorage.setItem('lastVisit', this.lastVisit.toISOString());
-    let intVisitCount = localStorage.getItem('visitCount');
-    if (intVisitCount !== null) {
-      this.visitCount = parseInt(intVisitCount);
-    }
-    if (this.visitCount === null) {
-      this.visitCount = 0;
-    }
-    this.visitCount++;
-    localStorage.setItem('visitCount', String(this.visitCount));
-    
-    
-  }
+    const today = new Date().toDateString();
+    const storedDate = localStorage.getItem('lastVisitDate');
 
+    if (storedDate !== today) {
+      this.visitCount = 1;
+      localStorage.setItem('lastVisitDate', today);
+    } else {
+      let intVisitCount = localStorage.getItem('visitCount');
+      this.visitCount = intVisitCount ? parseInt(intVisitCount) + 1 : 1;
+    }
+
+    localStorage.setItem('visitCount', String(this.visitCount));
+    localStorage.setItem('lastVisit', this.lastVisit.toISOString());
+  }
+  
   checkHover(event: MouseEvent, blog: any): void {
     // if (event.ctrlKey) {
       this.showInfo(blog);

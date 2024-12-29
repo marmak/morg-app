@@ -17,7 +17,7 @@ export class AnkiService {
       'Authorization': 'lol2', 'testi': '0', 'Access-Control-Allow-Origin': "*"})
   };
 
-  
+
   constructor(private http: HttpClient) { }
 
   getPendingCounts(): Observable<PendingCounts> {
@@ -27,7 +27,7 @@ export class AnkiService {
         catchError(this.handleError))
     return k;
   }
-  
+
   getAnki(cat: number): Observable<Question> {
     let k = this.http.get<Question[]>(`/api/random_question/${cat}?web=false`, this.httpOptions)
       .pipe(
@@ -60,7 +60,7 @@ export class AnkiService {
         catchError(this.handleError))
     return k;
   }
-  
+
   answer(qid: number, answer: number): Observable<Resp> {
     let r = this.http.get<Resp>(`/api/answer2/${qid}/${answer}`, this.httpOptions)
     return r;
