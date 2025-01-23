@@ -11,6 +11,7 @@ import { RouterModule, Router } from '@angular/router';
     templateUrl: './blogs.component.html',
     styleUrl: './blogs.component.css'
 })
+
 export class BlogsComponent {
   result?: Observable<BlogResult>;
   hoveredBlog?: Blog = undefined;
@@ -18,7 +19,7 @@ export class BlogsComponent {
   streamingData = '';
   lastVisit? = new Date();
   visitCount = 0;
-  
+
   constructor(private blogsService: BlogsService, private router: Router) { }
 
   ngOnInit(): void {
@@ -38,7 +39,7 @@ export class BlogsComponent {
     localStorage.setItem('visitCount', String(this.visitCount));
     localStorage.setItem('lastVisit', this.lastVisit.toISOString());
   }
-  
+
   checkHover(event: MouseEvent, blog: any): void {
     // if (event.ctrlKey) {
       this.showInfo(blog);
@@ -71,7 +72,7 @@ export class BlogsComponent {
         }
       }
     );
-  }  
+  }
   hideInfo(): void {
     // this.hoveredBlog = undefined;
   }
@@ -87,10 +88,10 @@ export class BlogsComponent {
       this.hoveredBlog = undefined;
       this.result = this.blogsService.getBlogs();
     });
-    
+
   }
-  
-  
+
+
   markRead() {
     this.result?.subscribe((result) => {
       let updates = result.items.map((item) => {
@@ -112,7 +113,7 @@ export class BlogsComponent {
     });
 
   }
-  
+
   formatDate(date: Date) {
     // format as DD HH:MM
     date = new Date(date);

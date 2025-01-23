@@ -20,7 +20,7 @@ export const routes: Routes = [
     path: 'blog/:id',
     component: BlogComponent,
     title: 'Blog page'
-  },    
+  },
   {
     path: 'blogs',
     component: BlogsComponent,
@@ -30,6 +30,6 @@ export const routes: Routes = [
     path: 'ds',
     component: MyTableComponent,
     title: 'ds'
-  },  
+  },
 
 ];
