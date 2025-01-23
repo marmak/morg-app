@@ -8,7 +8,7 @@ import {MatSort, Sort} from '@angular/material/sort';
 
 export abstract class AnkiDataSource implements DataSource<any> {
   protected dataChangeSubject = new BehaviorSubject<any[]>([]);
-  protected loadingSubject = new BehaviorSubject<boolean>(false);  
+  protected loadingSubject = new BehaviorSubject<boolean>(false);
   filteredData: any[] = [];
 
   public sortSubject: BehaviorSubject<Sort> = new BehaviorSubject<Sort>(this.defaultSort);
@@ -17,7 +17,7 @@ export abstract class AnkiDataSource implements DataSource<any> {
   lastFilter = {};
   lastSort = Object.assign({}, this.defaultSort);
 
-  
+
   constructor(
     protected paginator: MatPaginator,
     protected matSort: MatSort,
@@ -40,7 +40,7 @@ export abstract class AnkiDataSource implements DataSource<any> {
   set filter(filter: { [column: string]: string }) {
     this.filterSubject.next(filter);
   }
-  
+
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
     const dataMutations = [
       this.paginator.page,
@@ -97,7 +97,7 @@ export abstract class AnkiDataSource implements DataSource<any> {
 
     return matchFilter.every(Boolean);
   }
-  
+
 
   private getNewRows(rows: any[]): any[] {
     if (this.hasFilterChanged()) {
@@ -125,13 +125,13 @@ export abstract class AnkiDataSource implements DataSource<any> {
       return filteredRows;
     }
   }
-  
+
   private onFilterChanged(rows: any[]) {
     this.lastFilter = Object.assign({}, this.filter);
     this.paginator.pageIndex = 0;
     return this.filterAndSortRows(rows);
   }
-  
+
   private onSortChanged(rows: any[]) {
     this.lastSort.active = this.matSort.active;
     this.lastSort.direction = this.matSort.direction;
@@ -162,7 +162,7 @@ export abstract class AnkiDataSource implements DataSource<any> {
   private transformValueForSorting(value: string): any {
     return this.customSorting(this.matSort.active)(typeof value === 'string' ? value.toLowerCase() : value);
   }
-  
-  
-  
+
+
+
 }
