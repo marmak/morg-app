@@ -1,0 +1,6 @@
+* Install
+
+- to get ng
+$ npm install -g @angular/cli
+
+
