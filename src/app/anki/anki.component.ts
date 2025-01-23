@@ -36,11 +36,10 @@ function convertImages(d: string): string[] {
 
 
 @Component({
-  selector: 'app-anki',
-  standalone: true,
-  imports: [NgIf, QuestionDetailComponent, FormsModule, MatButtonModule, MatDividerModule, RouterModule],
-  templateUrl: './anki.component.html',
-  styleUrl: './anki.component.css'
+    selector: 'app-anki',
+    imports: [NgIf, QuestionDetailComponent, FormsModule, MatButtonModule, MatDividerModule, RouterModule],
+    templateUrl: './anki.component.html',
+    styleUrl: './anki.component.css'
 })
 export class AnkiComponent {
 

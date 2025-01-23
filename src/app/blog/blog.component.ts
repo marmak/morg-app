@@ -7,11 +7,10 @@ import { BehaviorSubject, Observable, Subject, debounceTime, distinctUntilChange
 import { BlogInfo } from '../blog';
 import { BlogsService } from '../blogs.service';
 @Component({
-  selector: 'app-blog',
-  standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
-  templateUrl: './blog.component.html',
-  styleUrl: './blog.component.css'
+    selector: 'app-blog',
+    imports: [CommonModule, FormsModule, RouterModule],
+    templateUrl: './blog.component.html',
+    styleUrl: './blog.component.css'
 })
 export class BlogComponent implements  OnInit {
   blogId?: string;

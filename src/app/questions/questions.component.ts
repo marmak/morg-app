@@ -44,11 +44,10 @@ export class QuestionsDataSource extends AnkiDataSource {
 
 
 @Component({
-  selector: 'app-questions',
-  standalone: true,
-  imports: [MatTableModule, MatAutocompleteModule, MatInputModule, ReactiveFormsModule, MatOptionModule, CommonModule, MatPaginatorModule, MatSortModule],
-  templateUrl: './questions.component.html',
-  styleUrl: './questions.component.css'
+    selector: 'app-questions',
+    imports: [MatTableModule, MatAutocompleteModule, MatInputModule, ReactiveFormsModule, MatOptionModule, CommonModule, MatPaginatorModule, MatSortModule],
+    templateUrl: './questions.component.html',
+    styleUrl: './questions.component.css'
 })
 export class QuestionsComponent implements OnInit, AfterViewInit {
   displayedColumns: string[] = ['id', 'question'];

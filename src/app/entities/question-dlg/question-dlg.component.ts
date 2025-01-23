@@ -2,11 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Question, Resp } from '../../question';
 @Component({
-  selector: 'app-question-dlg',
-  standalone: true,
-  imports: [MatDialogModule],
-  templateUrl: './question-dlg.component.html',
-  styleUrl: './question-dlg.component.css'
+    selector: 'app-question-dlg',
+    imports: [MatDialogModule],
+    templateUrl: './question-dlg.component.html',
+    styleUrl: './question-dlg.component.css'
 })
 export class QuestionDlgComponent {
   question: Question;

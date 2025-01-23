@@ -6,11 +6,10 @@ import {NgIf, UpperCasePipe} from '@angular/common';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
 import { RouterModule, Router } from '@angular/router';
 @Component({
-  selector: 'app-blogs',
-  standalone: true,
-  imports: [NgIf, UpperCasePipe,  CommonModule, AsyncPipe, RouterModule],
-  templateUrl: './blogs.component.html',
-  styleUrl: './blogs.component.css'
+    selector: 'app-blogs',
+    imports: [NgIf, UpperCasePipe, CommonModule, AsyncPipe, RouterModule],
+    templateUrl: './blogs.component.html',
+    styleUrl: './blogs.component.css'
 })
 export class BlogsComponent {
   result?: Observable<BlogResult>;
