@@ -4,3 +4,5 @@
 $ npm install -g @angular/cli
 
 
+- angular eslint
+  ng add angular-eslint
