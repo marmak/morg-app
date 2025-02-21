@@ -6,3 +6,6 @@ $ npm install -g @angular/cli
 
 - angular eslint
   ng add angular-eslint
+OSCYanc
+https://gronskiy.com/posts/2023-03-26-copy-via-vim-tmux-ssh/
+

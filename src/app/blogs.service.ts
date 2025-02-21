@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { HttpEventType} from '@angular/common/http';
-import { catchError, EMPTY, Observable, throwError } from 'rxjs';
-import { BlogResult } from './blog';
+import { map, catchError, EMPTY, Observable, throwError } from 'rxjs';
+import { BlogInfo, BlogResult } from './blog';
 
 @Injectable({
   providedIn: 'root'

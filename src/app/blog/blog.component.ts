@@ -28,7 +28,7 @@ export class BlogComponent implements  OnInit {
       const intId = parseInt(params['id']);
       this.blogsService.getBlog(intId).subscribe((result) => {
         this.blogInfo = result;
-        this.status = this.blogInfo.blog.status;
+        this.status = this.blogInfo!.blog.status;
       });
     });
   }
@@ -68,7 +68,7 @@ export class BlogComponent implements  OnInit {
       console.log("updated status", result);
     });
   }
-  
+
   markRead() {
     const firstItem = this.blogInfo?.items.find((item) => new Date(item.published) <= new Date());
     const lastRead = firstItem.published;
