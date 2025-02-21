@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { HttpEventType} from '@angular/common/http';
 import { map, catchError, EMPTY, Observable, throwError } from 'rxjs';
-import { BlogInfo, BlogResult } from './blog';
+import { BlogInfo, BlogResult, BlogSearchResult } from './blog';
 
 @Injectable({
   providedIn: 'root'
@@ -21,18 +21,21 @@ export class BlogsService {
         catchError(this.handleError)
       );
   }
-  searchBlogs(query: string): Observable<any[]> {
-    return this.http.get<any[]>('/blogs/api/search?q=' + query, this.httpOptions)
+
+  searchBlogs(query: string): Observable<BlogSearchResult[]> {
+    return this.http.get<BlogSearchResult[]>('/blogs/api/search?q=' + query, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
+
   getBlog(id: number): Observable<BlogInfo> {
     return this.http.get<BlogInfo>('/blogs/api/blog/' + id, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
+
   kagiSummarize(url: string): Observable<any> {
     return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
       headers: this.httpOptions.headers,
@@ -55,6 +58,7 @@ export class BlogsService {
         })
       );
   }
+
   kagiSummarizeold(url: string): Observable<any> {
     return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
       headers: this.httpOptions.headers,
@@ -77,7 +81,6 @@ export class BlogsService {
         })
       );
   }
-
 
   updateStatus(bid: number, status: number): Observable<any> {
     return this.http.post<any>('/blogs/api/updateStatus', {bid: bid, status: status}, this.httpOptions)
