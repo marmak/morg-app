@@ -46,7 +46,7 @@ export class BlogsService {
             return event.body;
           }
           return '';
-        }),
+       }),
         // scan((acc : string, curr :string) => {
         //   // console.log("curr", curr);
         //   // return acc + curr
@@ -70,11 +70,6 @@ export class BlogsService {
           }
           return '';
         }),
-        // scan((acc : string, curr :string) => {
-        //   // console.log("curr", curr);
-        //   // return acc + curr
-        //   return curr;
-        // }, ''),
         catchError(error => {
           console.error('Error:', error);
           return EMPTY;

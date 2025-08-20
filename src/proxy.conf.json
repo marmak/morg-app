@@ -1,6 +1,6 @@
   {
     "/api": {
-      "target": "https://marmak.xyz:8082",
+      "target": "http://amd:8082",
       "secure": false,
       "changeOrigin": true
     },
