@@ -108,9 +108,9 @@ export class AnkiComponent {
         let questionHead = q.question.question.split('\n')[0];
         q.questionHead = questionHead;
         q.images = convertImages(q.question.answer);
+        this.selectedQuestion = q.question;
       }
       this.qdc!.show = false;
-      this.selectedQuestion = q.question;
       this.ankiService.getPendingCounts().subscribe(r => {
         console.log("pendig response", r);
         this.pendingCounts = r;
