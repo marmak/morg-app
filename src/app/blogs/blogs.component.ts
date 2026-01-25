@@ -52,7 +52,7 @@ export class BlogsComponent {
     const blogId = blog.blog_id;
     this.blogsService.getBlog(blogId).subscribe((result) => {
       // get only item unreads (unread: true)
-      this.hoveredItems = result.items.filter((item) => item.unread);
+      this.hoveredItems = result.items.filter((item: any) => item.unread);
     });
   }
 

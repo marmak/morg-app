@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { HttpEventType} from '@angular/common/http';
-import { catchError, EMPTY, Observable, throwError } from 'rxjs';
-import { BlogResult } from './blog';
+import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { BlogResult, BlogInfo } from './blog';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class BlogsService {
       headers: this.httpOptions.headers,
       responseType: 'text' as 'json',
       observe: 'events', reportProgress: true}).pipe(
-        map(event => {
+        map((event: any) => {
           if (event.type === HttpEventType.Response) {
             return event.body;
           }
@@ -60,7 +60,7 @@ export class BlogsService {
       headers: this.httpOptions.headers,
       responseType: 'text' as 'json',
       observe: 'events', reportProgress: true}).pipe(
-        map(event => {
+        map((event: any) => {
           if (event.type === HttpEventType.Response) {
             return event.body;
           }

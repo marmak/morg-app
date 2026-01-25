@@ -1,8 +1,22 @@
+* run
+
+ng serve --host asus --port 4200
 * Install
 
 - to get ng
-$ npm install -g @angular/cli
+$ npm install
+
+  Then run it with npx:
+
+  npx ng serve --host amd --port 4200
+
+  Or use npm scripts in package.json (likely already there):
+
+  npm start
+  # or
+  npm run start
 
 
-- angular eslint
-  ng add angular-eslint
+
+
+
