@@ -105,12 +105,12 @@ export class AnkiComponent {
       switchMap(cat => this.ankiService.getAnki(cat))
     ).subscribe(q => {
       if (q) {
-        let questionHead = q.question.split('\n')[0];
+        let questionHead = q.question.question.split('\n')[0];
         q.questionHead = questionHead;
-        q.images = convertImages(q.answer);
+        q.images = convertImages(q.question.answer);
+        this.selectedQuestion = q.question;
       }
       this.qdc!.show = false;
-      this.selectedQuestion = q
       this.ankiService.getPendingCounts().subscribe(r => {
         console.log("pendig response", r);
         this.pendingCounts = r;
