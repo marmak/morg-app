@@ -57,7 +57,10 @@
         "serve": {
           "builder": "@angular/build:dev-server",
           "options": {
-            "proxyConfig": "src/proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.json",
+            "allowedHosts": [
+              "amd",
+            ]
           },
           "configurations": {
             "production": {
