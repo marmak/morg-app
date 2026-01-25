@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import {NgFor, NgIf, UpperCasePipe} from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { Question } from '../question';
 import {MatCardModule} from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 @Component({
     selector: 'app-question-detail',
-    imports: [NgIf,  MatCardModule, MatButtonModule, NgFor],
+    imports: [MatCardModule, MatButtonModule],
     templateUrl: './question-detail.component.html',
     styleUrl: './question-detail.component.css'
 })

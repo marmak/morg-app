@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { BlogsService } from '../blogs.service';
 import { Subject, Observable, of, throwError, debounceTime, distinctUntilChanged, filter, switchMap, finalize, BehaviorSubject } from 'rxjs';
 import { BlogItem, Blog, BlogResult, LastReadUpdate } from '../blog';
-import {NgIf, UpperCasePipe} from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { AsyncPipe, CommonModule } from '@angular/common'; // Add this import
 import { RouterModule, Router } from '@angular/router';
 @Component({
     selector: 'app-blogs',
-    imports: [NgIf, UpperCasePipe, CommonModule, AsyncPipe, RouterModule],
+    imports: [UpperCasePipe, CommonModule, AsyncPipe, RouterModule],
     templateUrl: './blogs.component.html',
     styleUrl: './blogs.component.css'
 })

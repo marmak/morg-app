@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import {NgIf, UpperCasePipe} from '@angular/common';
+import { UpperCasePipe } from '@angular/common';
 import { PendingCounts, Question } from '../question';
 import { AnkiService } from '../anki.service';
 import { QuestionDetailComponent } from '../question-detail/question-detail.component';
@@ -37,7 +37,7 @@ function convertImages(d: string): string[] {
 
 @Component({
     selector: 'app-anki',
-    imports: [NgIf, QuestionDetailComponent, FormsModule, MatButtonModule, MatDividerModule, RouterModule],
+    imports: [QuestionDetailComponent, FormsModule, MatButtonModule, MatDividerModule, RouterModule],
     templateUrl: './anki.component.html',
     styleUrl: './anki.component.css'
 })

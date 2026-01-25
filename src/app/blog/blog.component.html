@@ -1,52 +1,55 @@
 
 <h3>{{ blogInfo?.blog?.name }} <a href="{{ blogInfo?.blog?.link }}" target="_blank">link</a></h3>
 <div>
-    last updated: {{ blogInfo?.blog?.last_updated | date:'medium' }}
+  last updated: {{ blogInfo?.blog?.last_updated | date:'medium' }}
 </div>
 <div>
-    last read {{ blogInfo?.last_read  }}
+  last read {{ blogInfo?.last_read  }}
 </div>
 <div>
-    <label>status:</label>
-    <input type="text" [(ngModel)]="status" placeholder="status">
-    <button (click)="updateStatus()">update</button>
+  <label>status:</label>
+  <input type="text" [(ngModel)]="status" placeholder="status">
+  <button (click)="updateStatus()">update</button>
 </div>
 <div>
-    read:
-    <button (click)="markRead()">mark as read</button>
+  read:
+  <button (click)="markRead()">mark as read</button>
 </div>
 <hr/>
 <div>
-    <input type="text" [(ngModel)]="summarizeLink" placeholder="url">
-    <button (click)="summarize(summarizeLink)">summarize</button>
-    <div id="summary" [innerHTML]="streamingData"></div>
+  <input type="text" [(ngModel)]="summarizeLink" placeholder="url">
+  <button (click)="summarize(summarizeLink)">summarize</button>
+  <div id="summary" [innerHTML]="streamingData"></div>
 
 </div>
 <div>
-    <input type="text" [(ngModel)]="blogSearchQuery" placeholder="search">
-    <button (click)="blogSearch(blogSearchQuery)">search</button>
-    <div>
-        <ng-container>
-            <div *ngFor="let item of blogSearchResults">
-                <div>
-                    <span>{{ item.id }}</span>
-                    <span> : </span>
-                    <span><a routerLink="/blog/{{ item.id }}">{{ item.name }}</a></span>
-                </div>
-            </div>
-        </ng-container>
-    </div>
+  <input type="text" [(ngModel)]="blogSearchQuery" placeholder="search">
+  <button (click)="blogSearch(blogSearchQuery)">search</button>
+  <div>
+    <ng-container>
+      @for (item of blogSearchResults; track item) {
+        <div>
+          <div>
+            <span>{{ item.id }}</span>
+            <span> : </span>
+            <span><a routerLink="/blog/{{ item.id }}">{{ item.name }}</a></span>
+          </div>
+        </div>
+      }
+    </ng-container>
+  </div>
 </div>
 
 <hr/>
-<div *ngFor="let item of blogInfo?.items">
+@for (item of blogInfo?.items; track item) {
+  <div>
     <!-- <p [style.font-weight]="item.unread ? 'bold' : 'normal'">{{ item.title }}</p> -->
     <div class="item" >
-        <!-- <span>{{ formatDate(item.published) }}</span> -->
-        <span>{{ item.published | date:'shortDate' }}</span>
-        <span> : </span>
-        <span [class.bold]="item.unread"><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></span>
-        <span (click)="summarize(item.link)"> Summarize </span>
+      <!-- <span>{{ formatDate(item.published) }}</span> -->
+      <span>{{ item.published | date:'shortDate' }}</span>
+      <span> : </span>
+      <span [class.bold]="item.unread"><a href="{{ item.link }}" target="_blank">{{ item.title }}</a></span>
+      <span (click)="summarize(item.link)"> Summarize </span>
     </div>
-    
-</div>
+  </div>
+}
