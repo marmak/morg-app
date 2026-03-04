@@ -1,6 +1,27 @@
 * run
 
+  # morg-app (this)
 ng serve --host asus --port 4200
+
+ # in
+morg-server
+$ npm run build; node dist/bundle.js
+
+in proxy.conf.json, set the target to the server address (where the server is running):
+
+  {
+    "/api": {
+      "target": "https://amd:8082",
+      "secure": false,
+      "changeOrigin": true
+    },
+    "/blogs/api": {    <-- if you have a separate API for blogs morg-server
+      "target": "http://amd:3000",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
+
 * Install
 
 - to get ng
