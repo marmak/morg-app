@@ -33,14 +33,16 @@ export class BlogComponent implements  OnInit {
   }
 
   summarize(url: string) {
+    this.streamingData = 'Loading...';
     this.blogsService.kagiSummarize(url).subscribe(
       (result) => {
-        const start = result.indexOf('<ul>');
-        const end = result.indexOf('</ul>');
-        if (start !== -1 && end !== -1) {
-          let resultString = "<ul>" + result.substring(start + 4, end) + "</ul>";
-          resultString = resultString.replace(/\\n/g, '');
-          this.streamingData = resultString;
+        // Extract all <ul>...</ul> blocks from the response
+        const matches = result.match(/<ul>[\s\S]*?<\/ul>/g);
+        if (matches) {
+          this.streamingData = matches.join('').replace(/\\n/g, '');
+        } else {
+          // Fallback: show the raw response
+          this.streamingData = result;
         }
       }
     );

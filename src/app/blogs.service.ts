@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { HttpEventType} from '@angular/common/http';
-import { catchError, EMPTY, map, Observable, throwError } from 'rxjs';
+import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { BlogResult, BlogInfo } from './blog';
 
 @Injectable({
@@ -33,51 +32,17 @@ export class BlogsService {
         catchError(this.handleError)
       );
   }
-  kagiSummarize(url: string): Observable<any> {
-    return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
+  kagiSummarize(url: string): Observable<string> {
+    return this.http.get('/blogs/api/kagiSummarize?url=' + url, {
       headers: this.httpOptions.headers,
-      responseType: 'text' as 'json',
-      observe: 'events', reportProgress: true}).pipe(
-        map((event: any) => {
-          if (event.type === HttpEventType.Response) {
-            return event.body;
-          }
-          return '';
-        }),
-        // scan((acc : string, curr :string) => {
-        //   // console.log("curr", curr);
-        //   // return acc + curr
-        //   return curr;
-        // }, ''),
-        catchError(error => {
-          console.error('Error:', error);
-          return EMPTY;
-        })
-      );
+      responseType: 'text',
+    }).pipe(
+      catchError(error => {
+        console.error('Error:', error);
+        return EMPTY;
+      })
+    );
   }
-  kagiSummarizeold(url: string): Observable<any> {
-    return this.http.get<any>('/blogs/api/kagiSummarize?url=' + url, {
-      headers: this.httpOptions.headers,
-      responseType: 'text' as 'json',
-      observe: 'events', reportProgress: true}).pipe(
-        map((event: any) => {
-          if (event.type === HttpEventType.Response) {
-            return event.body;
-          }
-          return '';
-        }),
-        // scan((acc : string, curr :string) => {
-        //   // console.log("curr", curr);
-        //   // return acc + curr
-        //   return curr;
-        // }, ''),
-        catchError(error => {
-          console.error('Error:', error);
-          return EMPTY;
-        })
-      );
-  }
-
 
   updateStatus(bid: number, status: number): Observable<any> {
     return this.http.post<any>('/blogs/api/updateStatus', {bid: bid, status: status}, this.httpOptions)

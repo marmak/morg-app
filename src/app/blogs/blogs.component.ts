@@ -57,18 +57,14 @@ export class BlogsComponent {
   }
 
   summarize(url: string) {
+    this.streamingData = 'Loading...';
     this.blogsService.kagiSummarize(url).subscribe(
       (result) => {
-        console.log("summarize", result);
-
-        const start = result.indexOf('<ul>');
-        const end = result.indexOf('</ul>');
-        if (start !== -1 && end !== -1) {
-          let resultString = "<ul>" + result.substring(start + 4, end) + "</ul>";
-          // remove all \n
-          resultString = resultString.replace(/\\n/g, '');
-          console.log("summarize", resultString);
-          this.streamingData = resultString;
+        const matches = result.match(/<ul>[\s\S]*?<\/ul>/g);
+        if (matches) {
+          this.streamingData = matches.join('').replace(/\\n/g, '');
+        } else {
+          this.streamingData = result;
         }
       }
     );

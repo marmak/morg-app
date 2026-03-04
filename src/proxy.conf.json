@@ -5,7 +5,7 @@
       "changeOrigin": true
     },
     "/blogs/api": {
-      "target": "http://asus:3000",
+      "target": "http://amd:3000",
       "secure": false,
       "changeOrigin": true
     }
