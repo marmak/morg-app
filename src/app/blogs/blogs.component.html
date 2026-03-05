@@ -1,5 +1,12 @@
 @if (result | async; as blogList) {
-  <div id="summary" [innerHTML]="streamingData"></div>
+  @if (streamingData) {
+    <div class="modal-overlay" (click)="streamingData = ''">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <button class="modal-close" (click)="streamingData = ''">&times;</button>
+        <div [innerHTML]="streamingData"></div>
+      </div>
+    </div>
+  }
   <h2>Blogs</h2>
   <div>{{  lastVisit | date: 'yyyy-MM-dd HH:mm' }} <span> ({{ visitCount }})</span></div>
   <hr/>
