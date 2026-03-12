@@ -2,6 +2,7 @@
 
   # morg-app (this)
 ng serve --host asus --port 4200
+npx ng serve --host amd --port 4200
 
  # in
 morg-server
