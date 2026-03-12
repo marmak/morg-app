@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterModule, RouterLink } from '@angular/router';
-import { MatMenuModule } from '@angular/material/menu';
-import {MatListModule} from '@angular/material/list';
+import { RouterOutlet, RouterModule, RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, RouterLink, MatMenuModule, RouterModule, MatListModule],
+    imports: [RouterOutlet, RouterLink, RouterModule, RouterLinkActive],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

@@ -1,7 +1,128 @@
-.bold {
-  font-weight: bold;
+.blog-header {
+  margin-bottom: 12px;
 }
-.item {
-    margin-bottom: 6px;
-    font-size: 20px;
+
+.blog-header h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.blog-header h3 a {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.blog-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.blog-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.blog-actions label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.blog-actions input {
+  width: 50px;
+}
+
+.tools-section {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.tools-section input {
+  flex: 1;
+  max-width: 280px;
+}
+
+.summary-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.search-results {
+  margin: 8px 0;
+}
+
+.search-results a {
+  font-size: 13px;
+}
+
+.search-result-item {
+  padding: 2px 0;
+  font-size: 13px;
+}
+
+.search-result-item span {
+  color: var(--text-secondary);
+  font-size: 11px;
+}
+
+.post-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 4px 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+
+.post-item:last-child {
+  border-bottom: none;
+}
+
+.post-date {
+  font-size: 12px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.post-title a {
+  color: var(--text);
+}
+
+.post-title.unread a {
+  font-weight: 600;
+  color: var(--unread);
+}
+
+.post-summarize {
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 1px 4px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.post-item:hover .post-summarize {
+  opacity: 1;
+}
+
+.post-summarize:hover {
+  color: var(--accent);
+  background: var(--tag-bg);
 }

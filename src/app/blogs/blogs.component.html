@@ -7,50 +7,64 @@
       </div>
     </div>
   }
-  <h2>Blogs</h2>
-  <div>{{  lastVisit | date: 'yyyy-MM-dd HH:mm' }} <span> ({{ visitCount }})</span></div>
-  <hr/>
-  @for (blog of blogList.blogs; track blog) {
-    <div class="blog-info">
-      <a class="blog-link" [routerLink]="['/blog', blog.blog_id]"
-        (mouseover)="checkHover($event, blog)"
-        (mouseleave)="hideInfo()">
-        {{ blog.blog_name }}  ({{ blog.item_count }})
+
+  <div class="header">
+    <h2>Blogs</h2>
+    <span class="meta">{{ lastVisit | date: 'MMM d, HH:mm' }} &middot; visit #{{ visitCount }}</span>
+  </div>
+
+  <div class="blog-list">
+    @for (blog of blogList.blogs; track blog) {
+      <a class="blog-chip" [routerLink]="['/blog', blog.blog_id]"
+        (click)="checkHover($event, blog)">
+        {{ blog.blog_name }}
+        <span class="count">{{ blog.item_count }}</span>
       </a>
-      @if (hoveredBlog === blog) {
-        <div class="hover-info">
-          <!-- Add any additional info you want to show on hover -->
-          <p> <button (click)="markReadBlog()">mark as read</button> </p>
-          @for (item of hoveredItems; track item) {
-            <div>
-              <p> <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>         <span (click)="summarize(item.link)"> Summarize </span></p>
-            </div>
-          }
+    }
+  </div>
+
+  @if (hoveredBlog) {
+    <div class="hover-panel">
+      <div class="hover-panel-header">
+        <strong>{{ hoveredBlog.blog_name }}</strong>
+        <span>
+          <button (click)="markReadBlog()">Mark read</button>
+          <button (click)="closePanel()">&times;</button>
+        </span>
+      </div>
+      @for (item of hoveredItems; track item) {
+        <div class="hover-panel-item">
+          <span class="hover-panel-date">{{ item.published | date: 'MMM d' }}</span>
+          <a href="{{ item.link }}" target="_blank">{{ item.title }}</a>
+          <span class="summarize-btn" (click)="summarize(item.link)">summarize</span>
         </div>
       }
     </div>
   }
-}
-<hr/>
 
-<div>
-  <span>items: {{ (result | async)?.items?.length }} </span>
-  <button (click)="markRead()">mark as read</button>
+  <hr/>
 
-</div>
-@if (result | async; as itemList) {
+  <div class="items-bar">
+    <span>{{ blogList.items?.length }} unread items</span>
+    <button (click)="markRead()">Mark all read</button>
+  </div>
+
   <table>
-    <tr>
-      <th>published</th>
-      <th>blog_name</th>
-      <th>post_title</th>
-    </tr>
-    @for (item of itemList.items; track item) {
+    <thead>
       <tr>
-        <td>{{ item.published | date: 'yyyy-MM-dd HH:mm' }}</td>
-        <td><a [routerLink]="['/blog', item.blog_id]">{{ item.blog_name }}</a></td>
-        <td class="item-title" > <a [style.font-weight] =" item.status == 6 ? 'bold' : 'normal'" href="{{ item.post_link }}" target="_blank">{{ item.post_title }}</a></td>
+        <th>Date</th>
+        <th>Blog</th>
+        <th>Title</th>
       </tr>
-    }
+    </thead>
+    <tbody>
+      @for (item of blogList.items; track item) {
+        <tr>
+          <td class="date-cell">{{ item.published | date: 'MMM d, HH:mm' }}</td>
+          <td class="blog-cell"><a [routerLink]="['/blog', item.blog_id]">{{ item.blog_name }}</a></td>
+          <td class="item-title-cell"><a [style.font-weight]="item.status == 6 ? 'bold' : 'normal'" href="{{ item.post_link }}" target="_blank">{{ item.post_title }}</a></td>
+        </tr>
+      }
+    </tbody>
   </table>
 }

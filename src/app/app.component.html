@@ -1,12 +1,10 @@
 <main>
-    <mat-list class="list-horizontal" >
-        <a mat-list-item [routerLink]="['/']">home</a>
-        <a mat-list-item [routerLink]="['/blogs']">blogs</a>
-        <a mat-list-item [routerLink]="['/anki']">anki</a>
-
-        <a mat-list-item [routerLink]="['/questions']">questions</a>
-    </mat-list>
-    <mat-divider></mat-divider>
+    <nav>
+        <a [routerLink]="['/']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a [routerLink]="['/blogs']" routerLinkActive="active">Blogs</a>
+        <a [routerLink]="['/anki']" routerLinkActive="active">Anki</a>
+        <a [routerLink]="['/questions']" routerLinkActive="active">Questions</a>
+    </nav>
     <section>
     <router-outlet />
     </section>

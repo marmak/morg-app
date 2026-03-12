@@ -16,6 +16,7 @@ export class BlogsComponent {
   result?: Observable<BlogResult>;
   hoveredBlog?: Blog = undefined;
   hoveredItems? : any[];
+  panelLocked = false;
   streamingData = '';
   lastVisit? = new Date();
   visitCount = 0;
@@ -41,19 +42,24 @@ export class BlogsComponent {
   }
 
   checkHover(event: MouseEvent, blog: any): void {
-    // if (event.ctrlKey) {
+    if (event.ctrlKey) {
+      event.preventDefault();
       this.showInfo(blog);
-      // this.executeFunction(blog);
-    // }
+    }
   }
 
   showInfo(blog: Blog): void {
     this.hoveredBlog = blog;
     const blogId = blog.blog_id;
     this.blogsService.getBlog(blogId).subscribe((result) => {
-      // get only item unreads (unread: true)
       this.hoveredItems = result.items.filter((item: any) => item.unread);
     });
+  }
+
+  closePanel(): void {
+    this.hoveredBlog = undefined;
+    this.hoveredItems = undefined;
+    this.panelLocked = false;
   }
 
   summarize(url: string) {
@@ -81,7 +87,7 @@ export class BlogsComponent {
     console.log("markRead", update);
     this.blogsService.markRead(update).subscribe((result) => {
       console.log("marked read", result);
-      this.hoveredBlog = undefined;
+      this.closePanel();
       this.result = this.blogsService.getBlogs();
     });
 

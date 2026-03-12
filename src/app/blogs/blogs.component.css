@@ -1,47 +1,172 @@
-.item-title {
-    font-size: 20px;
-}
-.blog-info {
-    margin: 10px;
-    font-size: 20px;
-}
-
-.hover-info {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
+.header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
 }
 
+.header h2 {
+  margin: 0;
+}
+
+.meta {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.blog-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-bottom: 8px;
+}
+
+.blog-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  padding: 3px 8px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.blog-chip:hover {
+  background: var(--tag-bg);
+  text-decoration: none;
+}
+
+.blog-chip .count {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--tag-text);
+  background: var(--tag-bg);
+  padding: 1px 5px;
+  border-radius: 10px;
+}
+
+.hover-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  margin: 6px 0 10px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.hover-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.hover-panel-header strong {
+  font-size: 13px;
+}
+
+.hover-panel-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  font-size: 13px;
+}
+
+.hover-panel-date {
+  font-size: 11px;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.hover-panel-item .summarize-btn {
+  font-size: 11px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.hover-panel-item:hover .summarize-btn {
+  opacity: 1;
+}
+.hover-panel-item .summarize-btn:hover {
+  color: var(--accent);
+  background: var(--tag-bg);
+}
+
+.items-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+.item-title-cell a {
+  color: var(--text);
+}
+.item-title-cell a[style*="bold"] {
+  color: var(--unread);
+}
+
+.date-cell {
+  white-space: nowrap;
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.blog-cell {
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+/* Modal */
 .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
 }
 
 .modal-content {
-    background: white;
-    padding: 24px;
-    border-radius: 8px;
-    max-width: 700px;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    min-width: 300px;
+  background: var(--surface);
+  padding: 20px 24px;
+  border-radius: 10px;
+  max-width: 640px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+  min-width: 320px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.15);
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .modal-close {
-    position: absolute;
-    top: 8px;
-    right: 12px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
+  position: absolute;
+  top: 10px; right: 12px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.modal-close:hover {
+  background: var(--hover-bg);
+  color: var(--text);
 }
