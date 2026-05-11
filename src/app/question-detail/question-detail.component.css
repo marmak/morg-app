@@ -4,3 +4,69 @@ pre {
     /* font:400 12px/20px 'PT Mono', monospace; */
     width: 50%;
 }
+
+.fsrs-info {
+    margin-top: 8px;
+    padding: 8px 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
+    font-size: 12px;
+    font-family: 'PT Mono', ui-monospace, monospace;
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.fsrs-info dl {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: 12px;
+    row-gap: 2px;
+    margin: 0;
+}
+
+.fsrs-info dt {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+.fsrs-info dd {
+    margin: 0;
+}
+
+.fsrs-info .badge {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 4px;
+    background: #e3f2fd;
+    color: #0d47a1;
+    font-weight: 600;
+}
+
+.fsrs-info .badge.state-1,
+.fsrs-info .badge.state-3 {
+    background: #fff3e0;
+    color: #e65100;
+}
+
+.fsrs-info .badge.state-0 {
+    background: #f3e5f5;
+    color: #4a148c;
+}
+
+.fsrs-next {
+    margin-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 11px;
+    font-family: 'PT Mono', ui-monospace, monospace;
+}
+
+.fsrs-next .chip {
+    padding: 2px 8px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.06);
+    color: rgba(0, 0, 0, 0.75);
+}
+
+.fsrs-next .chip b {
+    color: #0d47a1;
+}

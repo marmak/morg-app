@@ -32,6 +32,45 @@
           <button mat-flat-button style="background-color: green; color: white;" (click)="onAnswerClick(5)">Easy</button>
         </mat-card-actions>
       }
+      @if (question.card) {
+        <div class="fsrs-info">
+          <dl>
+            <dt>state</dt>
+            <dd><span class="badge state-{{question.card.state}}">{{ stateLabel(question.card.state) }}</span></dd>
+            <dt>last_review</dt>
+            <dd>{{ question.card.last_review | date:'yyyy-MM-dd HH:mm' }}</dd>
+            <dt>due</dt>
+            <dd>{{ question.card.due | date:'yyyy-MM-dd HH:mm' }}</dd>
+            <dt>stability</dt>
+            <dd>{{ question.card.stability | number:'1.2-3' }} d</dd>
+            <dt>difficulty</dt>
+            <dd>{{ question.card.difficulty | number:'1.2-3' }}</dd>
+            <dt>retrievability</dt>
+            <dd>{{ retrievability(question.card) | number:'1.2-3' }}</dd>
+            @if (question.reps !== undefined) {
+              <dt>reps</dt>
+              <dd>{{ question.reps }}</dd>
+            }
+            @if (question.easiness !== undefined) {
+              <dt>easiness</dt>
+              <dd>{{ question.easiness | number:'1.2-3' }}</dd>
+            }
+          </dl>
+          @if (question.nextInfo) {
+            <div class="fsrs-next">
+              @for (k of nextOptionKeys(); track k) {
+                @if (question.nextInfo[k]; as ni) {
+                  <span class="chip">
+                    {{ nextOptionLabel(k) }}: <b>{{ ni.due | date:'MM-dd' }}</b>
+                    · S {{ ni.stability | number:'1.1-1' }}
+                    · D {{ ni.difficulty | number:'1.1-1' }}
+                  </span>
+                }
+              }
+            </div>
+          }
+        </div>
+      }
     </mat-card>
   </div>
 }

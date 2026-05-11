@@ -1,3 +1,16 @@
+export interface FsrsCard {
+  state: number;
+  step: number | null;
+  stability: number;
+  difficulty: number;
+  due: string;
+  last_review: string;
+}
+
+export interface FsrsNextInfo {
+  [key: string]: FsrsCard;
+}
+
 export interface Question {
   id: number;
   question: any;
@@ -6,6 +19,12 @@ export interface Question {
   images?: string[];
   next: string;
   days: number;
+  reps?: number;
+  easiness?: number;
+  lastAnswer?: string;
+  added?: string;
+  card?: FsrsCard;
+  nextInfo?: FsrsNextInfo;
 }
 
 export interface Resp {
