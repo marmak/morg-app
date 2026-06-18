@@ -16,9 +16,10 @@
   <div class="blog-list">
     @for (blog of blogList.blogs; track blog) {
       <a class="blog-chip" [routerLink]="['/blog', blog.blog_id]"
-        (click)="checkHover($event, blog)">
+        (click)="checkHover($event, blog)"
+        [style.font-weight]="blog.status == 6 ? 'bold' : 'normal'">
         {{ blog.blog_name }}
-        <span class="count">{{ blog.item_count }}</span>
+       <span class="count">{{ blog.item_count }}</span>
       </a>
     }
   </div>

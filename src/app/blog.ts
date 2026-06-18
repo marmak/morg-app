@@ -9,6 +9,7 @@ export interface Blog {
   blog_id: number;
   blog_name: string;
   item_count: number;
+  status: number;
 }
 
 // TODO: mess?
