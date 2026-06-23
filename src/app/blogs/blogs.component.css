@@ -14,6 +14,27 @@
   color: var(--text-secondary);
 }
 
+.important-toggle {
+  font-size: 12px;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.important-toggle:hover {
+  background: var(--tag-bg);
+}
+
+.important-toggle.active {
+  background: var(--tag-bg);
+  color: var(--unread);
+  font-weight: 600;
+}
+
 .blog-list {
   display: flex;
   flex-wrap: wrap;

@@ -11,10 +11,16 @@
   <div class="header">
     <h2>Blogs</h2>
     <span class="meta">{{ lastVisit | date: 'MMM d, HH:mm' }} &middot; visit #{{ visitCount }}</span>
+    <button class="important-toggle" [class.active]="importantOnly" (click)="toggleImportant()">
+      ★ important only
+    </button>
+    <button class="important-toggle" [class.active]="notImportantOnly" (click)="toggleNotImportant()">
+      ☆ not important
+    </button>
   </div>
 
   <div class="blog-list">
-    @for (blog of blogList.blogs; track blog) {
+    @for (blog of visibleBlogs(blogList.blogs); track blog) {
       <a class="blog-chip" [routerLink]="['/blog', blog.blog_id]"
         (click)="checkHover($event, blog)"
         [style.font-weight]="blog.status == 6 ? 'bold' : 'normal'">
@@ -46,7 +52,7 @@
   <hr/>
 
   <div class="items-bar">
-    <span>{{ blogList.items?.length }} unread items</span>
+    <span>{{ visibleItems(blogList.items).length }} unread items</span>
     <button (click)="markRead()">Mark all read</button>
   </div>
 
@@ -59,7 +65,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (item of blogList.items; track item) {
+      @for (item of visibleItems(blogList.items); track item) {
         <tr>
           <td class="date-cell">{{ item.published | date: 'MMM d, HH:mm' }}</td>
           <td class="blog-cell"><a [routerLink]="['/blog', item.blog_id]">{{ item.blog_name }}</a></td>

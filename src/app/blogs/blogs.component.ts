@@ -20,6 +20,8 @@ export class BlogsComponent {
   streamingData = '';
   lastVisit? = new Date();
   visitCount = 0;
+  importantOnly = false;
+  notImportantOnly = false;
 
   constructor(private blogsService: BlogsService, private router: Router) { }
 
@@ -39,6 +41,28 @@ export class BlogsComponent {
 
     localStorage.setItem('visitCount', String(this.visitCount));
     localStorage.setItem('lastVisit', this.lastVisit.toISOString());
+  }
+
+  toggleImportant(): void {
+    this.importantOnly = !this.importantOnly;
+    this.notImportantOnly = false;
+  }
+
+  toggleNotImportant(): void {
+    this.notImportantOnly = !this.notImportantOnly;
+    this.importantOnly = false;
+  }
+
+  visibleBlogs(blogs: Blog[]): Blog[] {
+    if (this.importantOnly) return blogs.filter((blog) => blog.status == 6);
+    if (this.notImportantOnly) return blogs.filter((blog) => blog.status != 6);
+    return blogs;
+  }
+
+  visibleItems(items: BlogItem[]): BlogItem[] {
+    if (this.importantOnly) return items.filter((item) => item.status == 6);
+    if (this.notImportantOnly) return items.filter((item) => item.status != 6);
+    return items;
   }
 
   checkHover(event: MouseEvent, blog: any): void {
@@ -96,7 +120,7 @@ export class BlogsComponent {
 
   markRead() {
     this.result?.subscribe((result) => {
-      let updates = result.items.map((item) => {
+      let updates = this.visibleItems(result.items).map((item) => {
         if (new Date(item.published) > new Date()) {
           console.log("item published in the future", item.published);
           return {blogId: item.blog_id, lastRead: new Date().toISOString()};
